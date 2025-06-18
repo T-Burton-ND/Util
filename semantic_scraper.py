@@ -56,6 +56,7 @@ from typing import Dict, List, Tuple
 import pandas as pd
 import requests
 from tqdm import tqdm
+import time
 
 # ────────────────────────── Silence noisy warnings ───────────────────
 warnings.filterwarnings(
@@ -347,6 +348,7 @@ def extract_tables_worker(
 
 # ╭───────────────────────────── main() ──────────────────────────────╮
 def main() -> None:
+    start_date_time = time.localtime()
     # ── CLI parsing ──────────────────────────────────────────────────
     ap = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -362,13 +364,12 @@ def main() -> None:
     ap.add_argument(
         "-q",
         "--query",
-        default="Rice Pyrolysis",
         help="Search string (use quotes for multi-word)",
     )
     ap.add_argument(
         "-o",
         "--outdir",
-        default="rice_pyrolysis_tables",
+        default=f"semantic_scraper_output_{start_date_time:.0f}",
         help="Output directory (can be on external drive)",
     )
     args = ap.parse_args()
