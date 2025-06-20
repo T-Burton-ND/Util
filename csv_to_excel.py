@@ -56,13 +56,12 @@ def sanitize_sheet_name(name: str) -> str:
         name = name.replace(ch, "_")
     return name[:31] or "sheet"
 
-
 def csvs_to_excel(
     csv_paths: list[pathlib.Path],
     output_path: pathlib.Path,
     engine: str,
     style: str,
-) -> None:
+    ) -> None:
     """Write CSVs to Excel according to *style*."""
     if not csv_paths:
         sys.exit("No CSV files found.")
@@ -77,25 +76,38 @@ def csvs_to_excel(
                 df.to_excel(writer, sheet_name=sheet, index=False)
 
         elif style == "single":
-            # All tables in one worksheet, separated by blank rows
+            # All tables in one worksheet, with title row + 1 blank row between tables
             sheet = "combined"
             current_row = 0
             for path in csv_paths:
-                print(f"→ Appending {path.name}  ➜  sheet “{sheet}” at row {current_row+1}")
                 df = pd.read_csv(path)
+                print(f"→ Appending {path.name}  ➜  sheet “{sheet}” at row {current_row+1}")
+
+                # Write the title row (filename, no extension)
+                title_df = pd.DataFrame([[path.stem]])
+                title_df.to_excel(
+                    writer,
+                    sheet_name=sheet,
+                    index=False,
+                    header=False,
+                    startrow=current_row,
+                )
+                current_row += 1
+
+                # Write the actual table
                 df.to_excel(
                     writer,
                     sheet_name=sheet,
                     index=False,
-                    startrow=current_row,
                     header=True,
+                    startrow=current_row,
                 )
-                current_row += len(df) + 2  # leave two blank rows
+                current_row += len(df) + 2  # one blank row after each table
+
         else:
             raise ValueError(f"Unknown style: {style!r}")
 
     print(f"\nDone! Workbook saved to: {output_path.resolve()}")
-
 
 # --------------------------------------------------------------------------- #
 # CLI
