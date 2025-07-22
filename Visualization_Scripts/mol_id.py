@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-mol_id.py
+mol_id.py – Molecule visualizer with online InChIKey support
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Author  : Thomas J. Burton – Savoie Research Group, UND
 Updated : 2025-07-22
@@ -8,22 +8,20 @@ License : MIT
 
 Description
 -----------
-Generate a 2D depiction of a molecule from a SMILES string or InChIKey using RDKit,
-with optional ACS 1996 element coloring and PubChem name resolution.
+Accepts a SMILES string, InChI string, or InChIKey and generates a canonical
+SMILES and 2D molecule image. SMILES and InChI are resolved locally using RDKit.
+InChIKeys are resolved online via PubChem.
 
 Usage
 -----
-# Visualize a molecule from SMILES
 python mol_id.py "CCO"
+python mol_id.py "InChI=1S/CH4/h1H4"
+python mol_id.py "LFQSCWFLJHTTHZ-UHFFFAOYSA-N"
 
-# Visualize using an InChIKey
-python mol_id.pyy "LFQSCWFLJHTTHZ-UHFFFAOYSA-N"
-
-# Black & white rendering
-python mol_id.py "CCO" --no-multicolor
-
-# Custom output filename
-python mol_id.py "CCO" -o ethanol.png
+Options
+-------
+--no-multicolor   Use black & white atoms
+-o                Custom output file name
 
 Dependencies
 ------------
@@ -35,11 +33,11 @@ import argparse
 import re
 import requests
 from rdkit import Chem
-from rdkit.Chem import AllChem, rdDepictor
+from rdkit.Chem import rdDepictor
 from rdkit.Chem.Draw.rdMolDraw2D import MolDraw2DCairo
 
 # ------------------------------------------------------------------------------
-# ACS 1996 element color palette (RGB values normalized to [0, 1])
+# ACS 1996 Element Color Palette
 # ------------------------------------------------------------------------------
 ACS_1996_COLORS = {
     'H':  (1.0, 1.0, 1.0),     # White
@@ -55,171 +53,38 @@ ACS_1996_COLORS = {
 }
 
 # ------------------------------------------------------------------------------
-# Helper Functions
+# Format Detection
+# ------------------------------------------------------------------------------
+
+def identify_input_type(query: str) -> str:
+    """Detect if input is SMILES, InChI, or InChIKey."""
+    if query.startswith("InChI="):
+        return "inchi"
+    elif re.fullmatch(r"[A-Z]{14}-[A-Z]{10}-[A-Z]", query):
+        return "inchikey"
+    else:
+        return "smiles"
+
+# ------------------------------------------------------------------------------
+# Helpers
 # ------------------------------------------------------------------------------
 
 def sanitize_filename(text: str) -> str:
-    """
-    Convert a string into a filesystem-safe filename.
-    
-    Parameters
-    ----------
-    text : str
-        Input string to sanitize (e.g., a SMILES string).
-    
-    Returns
-    -------
-    str
-        Sanitized version safe for filenames.
-    """
+    """Make safe filename from SMILES/InChI."""
     return re.sub(r'[^a-zA-Z0-9]', '_', text)
 
-def identify_input_type(query: str) -> str:
-    """
-    Identify whether input is a SMILES string or InChIKey.
-    
-    Parameters
-    ----------
-    query : str
-        Input chemical identifier string.
-    
-    Returns
-    -------
-    str
-        'smiles' or 'inchikey'
-    
-    Raises
-    ------
-    ValueError
-        If input doesn't match known formats.
-    """
-    if re.fullmatch(r"[A-Z]{14}-[A-Z]{10}-[A-Z]", query):
-        return "inchikey"
-    elif Chem.MolFromSmiles(query):
-        return "smiles"
-    else:
-        raise ValueError(f"Unrecognized input format: {query}")
-
-def inchikey_to_smiles(inchikey: str) -> str:
-    """
-    Use PubChem API to resolve InChIKey to a canonical SMILES.
-    
-    Parameters
-    ----------
-    inchikey : str
-        Valid InChIKey string.
-    
-    Returns
-    -------
-    str
-        Canonical SMILES string.
-    
-    Raises
-    ------
-    ValueError
-        If lookup fails.
-    """
-    url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/inchikey/{inchikey}/property/CanonicalSMILES/JSON"
-    response = requests.get(url, timeout=10)
-    if response.status_code != 200:
-        raise ValueError(f"Failed to resolve InChIKey: {inchikey}")
-    return response.json()["PropertyTable"]["Properties"][0]["CanonicalSMILES"]
-
-def get_common_name_from_inchikey(inchikey: str) -> str | None:
-    """
-    Retrieve a common or trivial name from PubChem using InChIKey.
-    
-    Parameters
-    ----------
-    inchikey : str
-        InChIKey for the compound.
-    
-    Returns
-    -------
-    str or None
-        Best-matching common name, or None if not found.
-    """
-    url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/inchikey/{inchikey}/synonyms/JSON"
-    response = requests.get(url, timeout=10)
-    if response.status_code != 200:
-        return None
-    try:
-        synonyms = response.json()["InformationList"]["Information"][0]["Synonym"]
-        for name in synonyms:
-            if not any(x in name for x in ["CID", "CHEBI", "InChI", "C[C@H]"]):
-                return name
-        return synonyms[0]  # Fallback
-    except Exception:
-        return None
-
-def get_molecule_info(query: str, verbose: bool = True) -> tuple[str, Chem.Mol, str | None]:
-    """
-    Convert an input string to RDKit Mol object and canonical SMILES.
-    
-    Parameters
-    ----------
-    query : str
-        SMILES or InChIKey input string.
-    verbose : bool
-        If True, print resolution information.
-    
-    Returns
-    -------
-    tuple[str, Mol, str or None]
-        Canonical SMILES, RDKit Mol, common name (if resolved).
-    
-    Raises
-    ------
-    ValueError
-        If conversion or resolution fails.
-    """
-    query_type = identify_input_type(query)
-    if query_type == "inchikey":
-        smiles = inchikey_to_smiles(query)
-        mol = Chem.MolFromSmiles(smiles)
-        name = get_common_name_from_inchikey(query)
-        if verbose:
-            print(f"[✓] Resolved InChIKey to SMILES: {smiles}")
-            if name:
-                print(f"[✓] Common name: {name}")
-    else:
-        mol = Chem.MolFromSmiles(query)
-        if mol is None:
-            raise ValueError(f"Invalid SMILES string: {query}")
-        smiles = Chem.MolToSmiles(mol, canonical=True)
-        name = None
-        if verbose:
-            print(f"[✓] Canonical SMILES: {smiles}")
-    return smiles, mol, name
-
 def draw_molecule(smiles: str, output_file: str, multicolor: bool = True):
-    """
-    Render and save a 2D molecule image from a SMILES string.
-    
-    Parameters
-    ----------
-    smiles : str
-        Canonical SMILES string.
-    output_file : str
-        Output .png filename.
-    multicolor : bool
-        Use ACS-style coloring if True; else black-and-white.
-    """
+    """Draw and save a 2D depiction of a molecule."""
     mol = Chem.MolFromSmiles(smiles)
     if mol is None:
-        raise ValueError(f"Invalid SMILES string: {smiles}")
-    
+        raise ValueError(f"Invalid SMILES: {smiles}")
     rdDepictor.Compute2DCoords(mol)
-
     drawer = MolDraw2DCairo(300, 300)
     opts = drawer.drawOptions()
-    opts.setBackgroundColour((1, 1, 1, 0))  # Transparent background
+    opts.setBackgroundColour((1, 1, 1, 0))
 
     if multicolor:
-        palette = {
-            atom.GetIdx(): ACS_1996_COLORS.get(atom.GetSymbol(), (0.0, 0.0, 0.0))
-            for atom in mol.GetAtoms()
-        }
+        palette = {atom.GetIdx(): ACS_1996_COLORS.get(atom.GetSymbol(), (0, 0, 0)) for atom in mol.GetAtoms()}
         opts.atomColours = palette
     else:
         opts.useBWAtomPalette()
@@ -228,50 +93,264 @@ def draw_molecule(smiles: str, output_file: str, multicolor: bool = True):
     drawer.FinishDrawing()
     with open(output_file, "wb") as f:
         f.write(drawer.GetDrawingText())
-    
-    print(f"[✓] Molecule image saved as: {output_file}")
+    print(f"[✓] Image saved to: {output_file}")
 
-def parse_args():
+def resolve_inchikey_to_smiles(inchikey: str) -> tuple[str, int] | None:
+
     """
-    Parse command-line arguments for script usage.
+    Resolve InChIKey to SMILES using CID → InChI → RDKit fallback.
+    """
+    try:
+        # Step 1: resolve CID from InChIKey
+        cid_url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/inchikey/{inchikey}/cids/JSON"
+        cid_resp = requests.get(cid_url, timeout=10)
+        cid_resp.raise_for_status()
+        cid = cid_resp.json()["IdentifierList"]["CID"][0]
+
+        # Step 2: try to get CanonicalSMILES
+        smiles_url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{cid}/property/CanonicalSMILES/JSON"
+        smiles_resp = requests.get(smiles_url, timeout=10)
+        smiles_resp.raise_for_status()
+
+        props = smiles_resp.json()["PropertyTable"]["Properties"][0]
+        if "CanonicalSMILES" in props:
+            return props["CanonicalSMILES"], cid
+
+        # Step 3: fallback to InChI if SMILES is missing
+        inchi_url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{cid}/property/InChI/JSON"
+        inchi_resp = requests.get(inchi_url, timeout=10)
+        inchi_resp.raise_for_status()
+        inchi = inchi_resp.json()["PropertyTable"]["Properties"][0]["InChI"]
+
+        mol = Chem.MolFromInchi(inchi)
+        if mol:
+            return Chem.MolToSmiles(mol, canonical=True), cid
+
+        else:
+            print(f"[!] InChI retrieved but could not be parsed by RDKit: {inchi}")
+            return None
+
+    except Exception as e:
+        print(f"[!] PubChem fallback failed: {e}")
+        return None
+
+
+def get_smiles_from_input(input_str: str) -> str:
+    """
+    Get SMILES string from input (SMILES, InChI, or InChIKey).
+
+    Returns
+    -------
+    str
+        A canonical or valid SMILES string.
+
+    Raises
+    ------
+    ValueError
+        If the input cannot be resolved to a molecule.
+    """
+    input_type = identify_input_type(input_str)
+
+    if input_type == "smiles":
+        mol = Chem.MolFromSmiles(input_str)
+        if not mol:
+            raise ValueError(f"Invalid SMILES: {input_str}")
+        return Chem.MolToSmiles(mol, canonical=True)
+
+    elif input_type == "inchi":
+        mol = Chem.MolFromInchi(input_str)
+        if not mol:
+            raise ValueError(f"Invalid InChI: {input_str}")
+        return Chem.MolToSmiles(mol, canonical=True)
+
+    elif input_type == "inchikey":
+        smiles = resolve_inchikey_to_smiles(input_str)
+        if smiles:
+            return smiles
+        else:
+            raise ValueError(f"Could not resolve InChIKey: {input_str}")
+
+    else:
+        raise ValueError("Unsupported input format.")
+
+def get_iupac_name_from_cid(cid: int) -> str | None:
+    """
+    Retrieve IUPAC name from PubChem CID.
+    
+    Parameters
+    ----------
+    cid : int
+        PubChem Compound ID.
     
     Returns
     -------
-    argparse.Namespace
-        Parsed arguments including input string and output settings.
+    str or None
+        IUPAC name if available.
     """
-    parser = argparse.ArgumentParser(
-        description="Draw a 2D depiction of a molecule from a SMILES string or InChIKey."
-    )
-    parser.add_argument("query", help="SMILES string or InChIKey")
-    parser.add_argument(
-        "-o", "--output", help="Output image file name (default: <smiles>_viz.png)"
-    )
-    parser.add_argument(
-        "--no-multicolor", action="store_true",
-        help="Disable ACS 1996 elemental coloring (use black & white)"
-    )
+    try:
+        url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{cid}/property/IUPACName/JSON"
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        return response.json()["PropertyTable"]["Properties"][0]["IUPACName"]
+    except Exception as e:
+        print(f"[!] IUPAC name lookup failed: {e}")
+        return None
+    
+def get_common_names_from_cid(cid: int, top_n: int = 3) -> list[str]:
+    """
+    Retrieve the top N most human-friendly common names from PubChem.
+
+    Parameters
+    ----------
+    cid : int
+        PubChem Compound ID.
+    top_n : int
+        How many names to return.
+
+    Returns
+    -------
+    list of str
+        List of common/trivial names (e.g., glucose, EtOH).
+    """
+    try:
+        url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{cid}/synonyms/JSON"
+        response = requests.get(url, timeout=10)
+
+        if response.status_code == 404:
+            print("[!] No synonyms available for this CID.")
+            return []
+
+        response.raise_for_status()
+        synonyms = response.json()["InformationList"]["Information"][0]["Synonym"]
+
+        registry_terms = (
+            "CID", "CHEBI", "EINECS", "UNII", "InChI", "IUPAC", "PUBCHEM",
+            "CHEMBL", "NSC", "ZINC", "EC ", "BRN", "CAS-"
+        )
+
+        # Filter out registry/systematic names
+        filtered = [
+            s for s in synonyms
+            if not any(tag in s.upper() for tag in registry_terms)
+            and 2 <= len(s) <= 40
+        ]
+
+        # Score and sort
+        ranked = sorted(filtered, key=lambda x: (-score_common_name(x), len(x)))
+        return ranked[:top_n]
+
+    except Exception as e:
+        print(f"[!] Common name lookup failed: {e}")
+        return []
+
+
+def resolve_smiles_or_inchi_to_cid(identifier: str, input_type: str) -> int | None:
+    """
+    Use PubChem to resolve a SMILES or InChI string to a CID.
+
+    Parameters
+    ----------
+    identifier : str
+        The SMILES or InChI string.
+    input_type : str
+        Either "smiles" or "inchi".
+
+    Returns
+    -------
+    int or None
+        CID if found, else None.
+    """
+    try:
+        url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/{input_type}/{requests.utils.quote(identifier)}/cids/JSON"
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        return response.json()["IdentifierList"]["CID"][0]
+    except Exception as e:
+        print(f"[!] CID lookup failed for {input_type}: {e}")
+        return None
+
+def score_common_name(name: str) -> int:
+    """
+    Assign a heuristic score to a synonym to prioritize common/trivial names.
+
+    Parameters
+    ----------
+    name : str
+        A synonym from PubChem.
+
+    Returns
+    -------
+    int
+        Higher scores indicate more desirable (common/trivial) names.
+    """
+    score = 0
+    if name.islower():
+        score += 3
+    elif name[0].isupper():
+        score += 2
+    if len(name) <= 8:
+        score += 3
+    elif len(name) <= 15:
+        score += 1
+    if not any(c in name for c in "[]/\\()"):
+        score += 2
+    return score
+
+
+
+# ------------------------------------------------------------------------------
+# CLI
+# ------------------------------------------------------------------------------
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Draw a 2D molecule image from a SMILES, InChI, or InChIKey.")
+    parser.add_argument("input", help="Molecule string (SMILES, InChI, or InChIKey)")
+    parser.add_argument("-o", "--output", help="Output image filename (default: <smiles>_viz.png)")
+    parser.add_argument("--no-multicolor", action="store_true", help="Disable ACS coloring (use black and white)")
     return parser.parse_args()
 
 # ------------------------------------------------------------------------------
 # Entrypoint
 # ------------------------------------------------------------------------------
-
 if __name__ == "__main__":
     args = parse_args()
 
     try:
-        smiles, mol, name = get_molecule_info(args.query)
+        input_type = identify_input_type(args.input)
 
-        # Determine output file name
-        output_file = args.output or f"{sanitize_filename(smiles)}_viz.png"
+        smiles = None
+        cid = None
 
-        # Draw molecule
-        draw_molecule(smiles, output_file, multicolor=not args.no_multicolor)
+        # --- Handle InChIKey ---
+        if input_type == "inchikey":
+            result = resolve_inchikey_to_smiles(args.input)
+            if result is None:
+                raise ValueError(f"Could not resolve InChIKey: {args.input}")
+            smiles, cid = result
 
-        # Print optional name
-        if name:
-            print(f"[✓] Common/trivial name: {name}")
+        # --- Handle SMILES or InChI ---
+        else:
+            smiles = get_smiles_from_input(args.input)
+            cid = resolve_smiles_or_inchi_to_cid(args.input, input_type)
+
+        # --- Output SMILES ---
+        print(f"[✓] SMILES: {smiles}")
+
+        # --- If we have CID, show names ---
+        if cid:
+            iupac = get_iupac_name_from_cid(cid)
+            if iupac:
+                print(f"[✓] IUPAC name: {iupac}")
+
+            common_names = get_common_names_from_cid(cid)
+            if common_names:
+                print(f"[✓] Common names: {', '.join(common_names)}")
+
+        # --- Draw image ---
+        output_path = args.output or f"{sanitize_filename(smiles)}_viz.png"
+        draw_molecule(smiles, output_path, multicolor=not args.no_multicolor)
 
     except Exception as e:
         print(f"[✗] Error: {e}")
+
+

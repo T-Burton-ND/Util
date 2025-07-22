@@ -7,12 +7,12 @@ FPS=15             # Frames per second for the GIF
 LOOP=0             # 0 = infinite loop, 1 = play once, etc.
 # ===================================================================
 
-# Usage: mov_to_gif.sh path/to/input.mov path/to/output_folder#
+# Usage: gif_from_mov.sh path/to/input.mov path/to/output_folder#
 
 # Check for required arguments
 if [ "$#" -ne 2 ]; then
     echo "Usage: $0 path/to/input.mov path/to/output_folder"
-    echo "Example: ./mov_to_gif.sh input.mov ./gifs"
+    echo "Example: ./gif_from_mov.sh input.mov ./gifs"
     exit 1
 fi
 
