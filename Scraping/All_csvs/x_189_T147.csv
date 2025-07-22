@@ -1,0 +1,17 @@
+0,1,2,3
+shown in Table 9.,,,
+,Table 9 - Flue Gas Composition from the Oxy-combustion Power Plant,,
+Component,Units (Mole),Value,Analysis Method
+CO2,%,93.6,Orsat Analysis
+O2,%,5.7,Fuel cell analyzer
+H2,%,0,GC-TCD
+N2,%,0.7,by difference
+,,,Gas filter correlation
+CO,ppm,430,
+,,,analyzer
+C1 (CH4),ppm,59.5,GC-FID
+C2,ppm,< 1,GC-FID
+C3,ppm,< 1,GC-FID
+C4,ppm,< 1,GC-FID
+C5,ppm,< 1,GC-FID
+C6+,ppm,< 1,GC-FID

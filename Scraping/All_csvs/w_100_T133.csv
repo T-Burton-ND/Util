@@ -1,0 +1,24 @@
+0,1,2
+"Table 4. Gasifier Operating Parameters, Gas Compositions, and Efficiencies",,
+Gasifier Operating Parameters,Value,
+Temperature,"1,598°F (870°C)",
+Pressure,33 psia (227.5 kPa),
+Gasifier Outlet Gas,mol %,mol %
+Composition,(wet),(dry)
+H2,13.2,23.9
+CO2,7.08,12.8
+CO,23.3,42.2
+H2O,44.6,--
+CH4,8.50,15.4
+C2H2,0.23,0.41
+C2H4,2.41,4.35
+C2H6,0.16,0.29
+C6H6,0.07,0.13
+Tar (C10H8),0.13,0.23
+NH3,0.18,0.32
+H2S,0.04,0.07
+H2:CO molar ratio,0.57,
+,72.9% HHVa basis,
+Gasifier Efficiency,,
+,72.5% LHVb basis,
+a Higher heating value. b Lower heating value.,,

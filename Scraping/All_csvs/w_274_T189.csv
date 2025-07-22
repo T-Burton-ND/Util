@@ -1,0 +1,19 @@
+0,1,2,3
+,,,Chemical kinetics approach
+of each element inside the gas phase.,,,
+Vtar,=,"−20.6 + 2.6 · VP A − 0.04 · V 2
+P A",(4.10)
+VH2O,=,1.32 · e(0.03·VP A),(4.11)
+Vgas,=,Vr ∗ −Vtar − VH2O,(4.12)
+%H2,=,"60.21 + 0.89 · VP A − 0.03 · V 2
+P A",(4.13)
+,,415.92,
+%CH4,=,57.37 − 0.78 · VP A −,(4.14)
+,,VP A,
+,,315.42,
+%CO,=,−31.52 + 1.05 · VP A −,(4.15)
+,,VP A,
+,,53.16,
+%CO2,=,−5.35 + 0.23 · VP A +,(4.16)
+,,VP A,
+%HCN,=,100 − (%H2 + %CH4 + %CO + %CO2),(4.17)

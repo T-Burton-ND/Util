@@ -1,0 +1,15 @@
+0,1,2,3,4,5
+properties are shown in Table 1.,,,,,
+,Table 1. Feedstock property analysis.,,,,
+,"Ultimate analysis (wt. %, daf *)：",,,,
+,C,H,O,N,S
+Eucalyptus,49.07,4.92,44.94,0.27,0.16
+Mixed Wood Pellet,49.52,6.26,43.50,0.72,0.0
+,"Proximate analysis (wt. %, a.r.*)：",,,,
+,Moisture,,Ash,,Combustible
+Eucalyptus,11.48,,0.56,85.9,
+Mixed Wood Pellet,9.95,,1.02,88.29,
+,"Heating value (HHV, MJ/kg, a.r.)",,,,
+Eucalyptus,17.34,,,,
+Mixed Wood Pellet,17.69,,,,
+,*daf: dry ash free    a.r.: as received,,,,

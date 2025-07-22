@@ -1,0 +1,13 @@
+0,1,2,3,4
+Gas,H2,CO,CO2,N2
+Texaco,35,52,12,1
+Shell,30,66,3,1
+Kingsport,68,22,4,5
+H2-Rich_1,73,10,9,8
+H2-Rich_3,55,8,7,30
+CO2-Rich,71,16,11,2
+CO2-Richer,67,13,18,2
+1:1 with low CO2,55,42,2,1
+1:1 with high CO2,49,40,10,1
+CO-Rich,37,58,4,1
+H2-Rich,71,20,8,1

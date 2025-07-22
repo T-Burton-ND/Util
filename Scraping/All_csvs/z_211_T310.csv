@@ -1,0 +1,21 @@
+0,1,2,3,4,5,6
+,,,Figure A-6. Reforming of corn stover.,,,
+,Table A-14. Net Element and Feedstock Balance for Gasification of Corn Stover,,,,,
+,with Ethanol Production for a 45% Thermal Efficiency Process,,,,,
+,,"Input, lb/hr",,,"Output, lb/hr",
+,Biomass,H2O,O2,CO2,H2,EtOH
+C,1966,,,1352,,614
+H,239,293,,,378,153
+O,1669,2346,,3606,,409
+Subtotal,3873,2639,0,4958,378,1176
+Total,,,6512,,,6512
+,Table A-15. Net Element and Feedstock Balance for Gasification of Corn Stover with,,,,,
+,Diesel Production for a 45% Thermal Efficiency Process,,,,,
+,,"Input, lb/hr",,,"Output, lb/hr",
+,Biomass,H2O,O2,CO2,H2,Diesel
+C,1966,,,1309,,657
+H,239,228,,,350,116
+O,1669,1821,,3490,,0
+Subtotal,3873,2049,0,4799,350,773
+Total,,,5922,,,5922
+,,,A-9,,,

@@ -1,0 +1,31 @@
+0,1,2,3,4,5,6,7,8,9,10,11
+T,"able 4.1.  Syngas composition from different feedstocks and gasification processes, in dry mole %.",,,,,,,,,,
+Data from Higman and van der Burgt (2008).,,,,,,,,,,,
+,,"Mole percent, in dry synthesis gas product",,,,,,,,,
+Process,CO2,CO,H2,CH4,CnHm,C2H4,C2H6,Ar,N2,H2S  +,NH3
+,,,,,,,,,,COS,
+Lurgi dry bottom coal,30.89,15.18,42.15,8.64,0.79,0,0,0,0.68,1.31,0.36
+BGL coal,3.46,54.96,31.54,4.54,0.48,0,0,0,3.35,1.31,0.36
+Ruhr 100 coal,29.52,18.15,35.11,15.78,1.02,0,0,0,0.35,0,0
+,,,,,,,,,,(H2S),
+"Fluid bed, biomass Air",6.7,31,18.9,2.1,0,0,0,0.5,40.8,0.03,0
+"Fluid bed, lignite O2/steam",6.2,56.7,32.8,2.6,0,0,0,0.6,0.9,0.2,0
+"Fluid bed, Bit. O2/steam",5.3,52,37.3,3.5,0,0,0,0.6,1,0.3,0
+"Fluid bed, Bit. Air",1.9,30.7,18.7,0.9,0,0,0,0.6,47,0.2,0
+"Entrained flow, browncoal",8,61,29,0,0,0,0,1,1,0.2,0
+"Entrained flow, lignite",10,62,26,0,0,0,0,1,1,0.1,0
+"Entrained flow, anthracite",1,65,31,0,0,0,0,1,1,0.2,0
+"GEE Oil gasification, NG",2.6,35,61.1,0.3,0,0,0,1,0,0,0
+"GEE 
+Oil 
+gasification,",2.7,45.3,51.2,0.7,0,0,0,0.1,0,0,0
+Naphtha,,,,,,,,,,,
+"GEE 
+Oil 
+gasification,",5.7,47.5,45.8,0.5,0,0,0,0.3,0.3,0,0
+Heavy oil,,,,,,,,,,,
+"GEE Oil gasification, Tar",5.7,54.3,38.9,0.1,0,0,0,0.8,0.2,0,0
+"SilvaGas 
+(Batelle)",12.2,44.4,22,15.6,0,5.1,0.7,0,0,0,0
+biomass,,,,,,,,,,,
+FICFB,20,25,37.5,10,0,0,0,0,4,0,0

@@ -1,0 +1,16 @@
+0,1,2,3,4,5
+"Composite 
+Membrane","Polymer 
+Selective 
+Layer 
+Candidate",Performance at 25°C,,Performance at 150°C,
+,,"H2 
+Permeance 
+(gpu)","H2/CO2 
+Selectivity","H2 
+Permeance 
+(gpu)","H2/CO2 
+Selectivity"
+Type A,A,10,10,160,8
+Type B,B,10,17,140,10
+Type C,C,12,15,200,19

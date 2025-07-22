@@ -1,0 +1,35 @@
+0,1,2,3,4,5,6
+,Table A-23. Net Element and Feedstock Balance for Reforming of Lignin (moist) with,,,,,
+,Diesel Production for a 45% Thermal Efficiency Process,,,,,
+,,"Input, lb/hr",,,"Output, lb/hr",
+,Biomass,H2O,O2,CO2,H2O,Diesel
+C,1791,,,1134,,657
+H,591,,,,474,116
+O,4292,,,3025,1268,0
+Subtotal,6675,,0,4159,1742,773
+Total,,,6675,,,6675
+,Table A-24. Net Element and Feedstock Balance for Reforming of Lignin (moist) with,,,,,
+,Ethanol Production for a 55% Thermal Efficiency Process,,,,,
+,,"Input, lb/hr",,,"Output, lb/hr",
+,Biomass,H2O,O2,CO2,H2O,EtOH
+C,1466,,,852,,614
+H,483,,,,330,153
+O,3512,,,2272,831,409
+Subtotal,5461,,0,3124,1161,1176
+Total,,,5461,,,5461
+,Table A-25. Net Element and Feedstock Balance for Reforming of Lignin (moist) with,,,,,
+,Diesel Production for a 55% Thermal Efficiency Process,,,,,
+,,"Input, lb/hr",,,"Output, lb/hr",
+,Biomass,H2O,O2,CO2,H2O,Diesel
+C,1466,,,809,,657
+H,483,,,,367,116
+O,3512,,,2156,1356,0
+Subtotal,5461,,0,2965,1723,773
+Total,,,5461,,,5461
+R,EFORMING: COMPARISON OF CORN STOVER VERSUS MOIST LIGNIN,,,,,
+,A  comparison  can  be  made  between  corn  stover  and  moist  lignin  as  feedstocks  for  a,,,,,
+,reforming  process.  Either  feedstock  can  be  used  to  produce  either  ethanol  or  diesel  fuel.  Key,,,,,
+,"differences  would  be  amount  of  biomass  required,  but  for  moist",,,,"lignin,  half",the  biomass
+,"comprises water. Table A-26 shows the tabular results, while Figures A-9 and A-10 show them",,,,,
+graphically.,,,,,,
+,,,A-12,,,

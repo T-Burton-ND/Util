@@ -1,0 +1,25 @@
+0,1,2,3
+,"tables below.  The total reactor weight includes an additional 20%, which includes",,
+,necessary structural components for transportation and mounting.,,
+FIRST STAGE -,,,
+COBALT,,,
+Feed : SG after shift and,,,
+CO2 removal,,,
+Flow (nm3/h),64359,OPERATING PARAMETERS,
+SCFD,5.77E+07,Temperature,"400.00 
+ oF"
+H2/CO in,1.950,Pressure,"350.00 
+psig"
+SYNGAS,Comp (%),∆P,"45 
+psig"
+H2,64.63,Recycle,0.55  mol/mol
+CO,33.14,,
+CH4,0.10,SELECTIVITIES,
+CO2,0.98,Alpha Value,0.92
+H2O,0.23,CH4 Sel (%),9
+N2,0.62,CO2 Sel (%),1
+Ar,0.29,,
+Totals,100.00,,
+CO Conversion (%),,PRODUCTIVITY,
+Per Pass,50.88,Avg FT rate in cc CO/,
+Total,79.00,cc cat/h,256

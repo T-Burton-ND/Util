@@ -1,0 +1,13 @@
+0,1,2,3,4
+"Table 9. Composition of Sasol- Lurgy gasifier syngas  (Steynberg & Dry, 2004) and syngas composition from asphaltenes gasification",,,,
+Syngas,Sasol-lurgi gasifier,Trial 7,Trial 8,Trial 9
+Operation temperature,(800  to 1000ºC),1000ºC,1000ºC,1000ºC
+H2,39,"29,76","31,70","31,53"
+CO,18,"14,31","13,01","14,77"
+CO2,31,"4,02","2,66","3,48"
+CH2,11,"38,81","40,79","39,82"
+N2,1,"0,66","0,64","0,59"
+H /CO,"2,2","2,08","2,44","2,13"
+"2 F
+uel",Coal,Asphaltenes,Asphaltenes,Asphaltenes
+Gasifying agent,Oxygen + steam,Oxygen,Oxygen,Oxygen

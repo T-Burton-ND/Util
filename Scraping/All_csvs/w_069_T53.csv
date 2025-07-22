@@ -1,0 +1,13 @@
+0,1,2,3,4
+Table 7 Experimental results for reforming of a typical biomass-derived syngas at,,,,
+,,850oC on Rh-Ce/α-Al2O3 catalyst,,
+,,Biomass Gasifier Product Stream,,
+Component,Recommended,Reactor,Reactor,Equilibrium
+,by literature,Feed,Effluent,Effluent
+,(mol %),(mol %),(mol %),(mol %)
+N2,36.1,43.3,40.29,40.1
+CO,24.6,20,26.3,27.8
+H2,22.4,20,23.55,23.1
+CO2,9.1,9.1,5.14,4.6
+H2O,6.6,6.6,4.69,4.3
+Tars,~0.5-1,1,0.0005,0

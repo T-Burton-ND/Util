@@ -1,0 +1,51 @@
+0,1,2,3,4,5,6,7
+COMPONENT,UNITS,1510A,505C,416Z,592,419,420
+Total Flow,lb/hr,"7,040","87,710","12,873","87,710","77,290","77,290"
+Temperature,F,128,253,108,145,110,149
+Pressure,Psia,152.0,98.0,424.5,14.7,415.0,20.7
+Vapor Fraction,,-,-,1,-,1,1
+Hydrogen (H2),lb/hr,-,-,"1,113",-,-,-
+Carbon Monoxide (CO),lb/hr,-,-,"4,596",-,-,-
+Nitrogen (N2),lb/hr,-,-,368,-,-,-
+Oxygen (O2),lb/hr,-,-,-,-,-,-
+Argon (Ar),lb/hr,-,-,-,-,-,-
+Carbon Dioxide (CO2),lb/hr,-,0,"3,000",0,"77,163","77,163"
+Water (H2O),lb/hr,44,"1,010",1,"1,010",-,-
+Hydrogen Sulfide (H2S),lb/hr,-,-,0,-,127,127
+Sulfur dioxide (SO2),lb/hr,-,-,-,-,-,-
+Ammonia (NH3),lb/hr,-,0,4,0,-,-
+Nitrogen dioxide (NO2),lb/hr,-,-,-,-,-,-
+Methane (CH4),lb/hr,-,0,"2,793",0,-,-
+Ethane (C2H6),lb/hr,-,0,4,0,-,-
+Ethylene (C2H4),lb/hr,-,0,545,0,-,-
+Acetylene (C2H2),lb/hr,-,0,39,0,-,-
+Propane (C3H8),lb/hr,0,0,0,0,-,-
+Propene (C3H6),lb/hr,0,-,-,-,-,-
+I-Butane (C4H10),lb/hr,"6,662",0,0,0,-,-
+N-Butane (C4H10),lb/hr,106,0,0,0,-,-
+Butenes (C4H8),lb/hr,186,-,-,-,-,-
+Pentanes (C5H12),lb/hr,3,0,0,0,-,-
+Pentenes (C5H10),lb/hr,0,-,-,-,-,-
+Hexanes (C6H14),lb/hr,0,-,-,-,-,-
+Hexenes (C6H12),lb/hr,0,-,-,-,-,-
+Benzene (C6H6),lb/hr,0,3,0,3,-,-
+Heptanes (C7H16),lb/hr,0,-,-,-,-,-
+Triptane,lb/hr,0,-,-,-,-,-
+Heptenes (C7H14),lb/hr,0,-,-,-,-,-
+Triptene,lb/hr,0,-,-,-,-,-
+Octanes (C8H18),lb/hr,0,-,-,-,-,-
+Octenes (C8H16),lb/hr,0,-,-,-,-,-
+N-Nonanes (C9H20),lb/hr,0,-,-,-,-,-
+N-Nonenes (C9H18),lb/hr,0,-,-,-,-,-
+Hexamethylbenzene (C6(CH3)6),lb/hr,-,-,-,-,-,-
+Tar (C10H8),lb/hr,-,0,0,0,-,-
+Carbon (Solid),lb/hr,-,-,-,-,-,-
+Sulfur (Solid),lb/hr,-,-,-,-,-,-
+Olivine + MgO (Solid),lb/hr,-,-,-,-,-,-
+Methanol (CH4O),lb/hr,-,"86,697",411,"86,697",-,-
+Dimethyl ether (C2H6O),lb/hr,38,-,-,-,-,-
+MDEA (C5H13NO2),lb/hr,-,-,-,-,-,-
+Ash,lb/hr,-,-,-,-,-,-
+Char,lb/hr,-,-,-,-,-,-
+Wood,lb/hr,-,-,-,-,-,-
+Enthalpy Flow,MMBTU/hr,(8),(271),(25),(280),(297),(296)

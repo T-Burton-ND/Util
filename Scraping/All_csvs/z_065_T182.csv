@@ -1,0 +1,25 @@
+0,1,2,3,4
+Table 3.4. Gasification results of different pyrolysis oil and sugar waste streams,,,,
+Feed type,beech,pine,'Light' sugar,'Heavy' sugar
+Liquid feed (kg/h),0.56,0.43,0.43,0.80
+Bed Type: sand (kg),5.0,5.0,5.0,5.0
+: inert (kg),0.0,0.0,3.7,3.7
+: K46 (kg),5.0,5.0,4.7,4.7
+: K23 (kg),2.5,2.5,0.0,0.0
+T fluid bed (˚C),780,805,681,648
+T fixed bed (˚C),808,815,795,787
+S/C,1.6,1.6,0.6,2.3
+Carbon to Gas (%),89,88,89,86
+H2 yield (%),67,68,50,44
+,,,Gas Production (Nm3/kg),
+H2,1.53,1.56,0.77,0.72
+CH4,0.00,0.00,0.03,0.10
+CO,0.58,0.60,0.48,0.19
+CO2,0.35,0.30,0.18,0.36
+C2-C3,0.00,0.00,0.00,0.00
+,,"Gas composition (vol%, N2 free)",,
+H2,61.1,62.6,50.3,51.5
+CH4,0.0,0.0,2.2,7.4
+CO,23.3,23.9,30.4,13.3
+CO2,13.9,11.9,11.6,25.5
+C2-C3,0.0,0.0,0.1,0.2

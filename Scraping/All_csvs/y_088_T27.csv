@@ -1,0 +1,18 @@
+0,1,2,3,4
+,(particle size 1.4 – 2.8 m.m. and catalyst temperature 950 °C).,,,
+,,Steam flow rate (ml h-1),,
+,2,4,6,10
+Steam: biomass ratio,0.46,0.91,1.37,2.28
+H2 (mmoles g-1 rice husk),22.31,25.9,25.44,27.86
+H2/CO,1.95,2.21,2.59,3.15
+CO/CO2,2.04,2.1,1.41,1.21
+H2/CO2,3.99,4.65,3.64,3.8
+H2/CH4,75.59,37.51,33.24,28.15
+CH4/CO,0.03,0.06,0.08,0.11
+CH4/CO2,0.05,0.12,0.11,0.14
+Mass balance (wt.%),,,,
+Gas / (biomass + water),42.49,33.4,26.3,18.62
+Solid / (biomass + water),22.41,16.54,13.02,9.06
+Mass balance,96.63,91.41,96.65,95.64
+Gas / (biomass),61.61,63.63,63.64,64.23
+Solid / (biomass),32.5,31.5,31.5,31.25

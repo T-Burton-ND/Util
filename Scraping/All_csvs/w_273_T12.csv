@@ -1,0 +1,11 @@
+0,1,2
+,Sewage sludge gasification gas compositions (λ = 0.18),
+,,Symbol of sewage sludge
+,SS1,SS2
+CH4 [vol. dry basis %],0.85,0.77
+H2 [vol. dry basis %],5.50,4.50
+CO [vol. dry basis %],21.70,20.00
+CO2 [vol. dry basis %],16.50,18.06
+N2 [vol. dry basis %],55.45,56.67
+"LHV [MJ/m3
+n]",3.65,3.28

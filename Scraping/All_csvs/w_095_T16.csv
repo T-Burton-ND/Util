@@ -1,0 +1,117 @@
+0,1,2,3,4,5,6
+Table 2  Summary  of,relevant  parameters  of  bioreactor  operation  and  process  performance,,,,,"for 
+H2/CO2  and  CO"
+fermentations,,,,,,
+Variable,Symbol,Unit,CO fermentation,,,H2/CO2 fermentation
+Performance indicators,,,,,,
+,,1,,,,
+Ethanol volumetric productivity,Ret,"g  L−
+1  h−",4.25,,,5.1
+Gas utilization,US,%,17.1,,,22.9
+Gas outflow composition,,,,,,
+,,1,,,,
+Hydrogen,yH2,mol  mol−,0.00,,,0.71
+,,1,,,,
+Carbon dioxide,yCO2,mol  mol−,0.11,,,0.24
+,,1,,,,
+Carbon monoxide,yCO,mol  mol−,0.84,,,0.00
+,,1,,,,
+Ethanol,yet,mol  mol−,0.01,,,0.01
+,,1,,,,
+Water,yw,mol  mol−,0.04,,,0.04
+"Concentrations in the fermentation  brotha,b",,,,,,
+,,3,,,,
+Hydrogen,CH2,mol  m−,0.00 (0.00),,,0.025 {0.033; 0.018}
+,"(C∗
+H2)",,,,,(1.15 {1.63; 0.78})
+,,3,,,,
+Carbon dioxide,CCO2,mol  m−,0.32 {0.00; 4.22},,,12.46 {17.11; 8.94}
+,"(C∗
+CO2)",,,,,(13.09 {18.51; 8.86})
+,,3,,,,
+Carbon monoxide,CCO,mol  m−,"2.7 
+3 {3.6 
+ 10−","3; 2.0 
+ 10−","3}
+ 10−",0.000 (0.000)
+,,,"×
+×",×,,
+,"(C∗
+CO)",,(1.62 {2.45; 1.01}),,,
+Ethanol,Cet,"1)
+mol  L−
+1 (g  L−",0.96 (44.3),,,0.98 (45.0)
+Biomass,Cx,"1)
+Cmol  m−
+3 (g  L−",395 (10.0),,,399 (10.1)
+Parameters estimated with  thermodynamicsa,,,,,,
+,,1,,,,
+Catabolic energy production,"(cid:31)G0′
+cat",kJ molCS−,"29.2 {
+ 48.2;",24.0},,"19.9 {
+ 23.0 
+ 16.45}"
+,,,"−
+−
+−",,,"−
+−
+−"
+,,1,,,,
+Biomass yield,Yx/CS,Cmolx molCS−,0.041,,,0.020
+,Biomass specific consumption/production rates (logarithmic mean),,,,,
+,,1,,,,
+Hydrogen,qH2,"1  h−
+mol Cmolx−",0.00,,,1.67
+,,,,,,−
+,,1,,,,
+Carbon dioxide,qCO2,"1  h−
+mol Cmolx−",1.00,,,0.56
+,,,,,,−
+,,1,,,,
+Carbon monoxide,qCO,"1  h−
+mol Cmolx−",1.52,,,0.00
+,,,−,,,
+,,1,,,,
+Ethanol,qet,"1  h−
+mol Cmolx−",0.23,,,0.28
+,,1,,,,
+Water,qw,"1  h−
+mol Cmolx−",0.73,,,0.84
+,,,−,,,
+,,1,,,,
+Cells,µ,h−,0.06,,,0.01
+Non-dimensional electron donor uptake rate,q′,–,0.35,,,0.38
+,D,,,,,
+Streams entering and leaving the bioreactor,,,,,,
+Gas flow rate at the top,"FG,t","1)
+mol  s−
+1  (m3  s−",462 (7.8),,,418 (7.1)
+,"(˙VG,t)",,,,,
+,,"1)
+1  (m3  s−",,,,
+Gas flow rate at the bottom,"FG,b ( ˙VG,b)",mol  s−,479 (4.0),,,528 (4.4)
+,˙,1,,,,
+Liquid outflow rate,,m3  h−,30.0,,,39.3
+,"VL,o",,,,,
+,,1,,,,
+Fresh syngas,FS,mol  s−,80.0,,,118
+,Parameters regarding gas and liquid flows and mixing (logarithmic mean),,,,,
+Gas flow rate,FG(˙VG),"1)
+mol  s−
+1  (m3  s−",471 (5.6),,,471 (5.6)
+,,1,,,,
+Superficial gas velocity (pressure-corrected),vc,m  s−,0.14,,,0.14
+,sG,,,,,
+,˙,1,,,,
+Liquid flow rate,,m3  s−,26.9,,,26.9
+,VL,,,,,
+Mixing time,tm,s,60.4c,,,61.2c
+,,,54.3d,,,54.3d
+Mass transfer coefficients (logarithmic mean),,,,,,
+,,1,,,,
+Hydrogen,kLaH2,s−,0.000,,,0.164
+,,1,,,,
+Carbon dioxide,kLaCO2,s−,0.000,,,0.098
+,,1,,,,
+Carbon monoxide,kLaCO,s−,0.104,,,0.000
+,"a  The average value is shown first, followed by the values at the top and the bottom of the liquid column between curly brackets",,,,,

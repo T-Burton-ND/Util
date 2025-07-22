@@ -1,0 +1,15 @@
+0,1,2,3,4,5,6,7
+Table 2 Comparison of activity of,,the Co/Sm2O3 with literature,,,,,
+Catalyst,BET-speciﬁc surface,CH4,CO2,H2,CO,Reaction,Reference
+,area (m2 g-1),conversion (%),conversion (%),yield (%),yield (%),temp (K),
+Co/,28.25,70.60,73.50,62.25,73.19,1023,This work
+Sm2O3,,,,,,,
+Co/,53.00,86.50,88.10,84.80,87.30,973,Ruckenstein and Wang
+Al2O3,,,,,,,(2000)
+Co/CeO2,67.00,85.00,92.00,NR,NR,1073,"Luisetto et al.
+(2012)"
+Co/TiO2,4.00,20.50,35.30,8.8,28.8,1173,Nagaoka (2003)
+Co/ZrO2,33.00,52.40,51.70,NR,NR,923,"Wang et al.
+(2010)"
+Co/CaO,5.00,38.60,54.30,31.90,46.30,1173,Ruckenstein and Wang
+,,,,,,,(2000)

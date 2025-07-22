@@ -1,0 +1,17 @@
+0,1,2,3,4,5,6,7,8
+Table 4,,,,,,,,
+Results obtained from the optimization using different gasifying agents.,,,,,,,,
+Exp.,Reference,H2,CO,CO2,CH4,N2,RMS error from this work,RMS error from the reference
+,,ð%Þ,ð%Þ,ð%Þ,ð%Þ,ð%Þ,,
+1,Sarker et al. [43],3.82,13.15,13.23,3.14,66.66,0.88,e
+2,Arteaga-P(cid:1)erez et al. [16],5.85,15.23,14.14,5.13,59.65,1.08,e
+3,Karmakar et al. [8],9.56,11.08,21.66,3.55,54.15,0.90,1.21
+4,Radmanesh et al. [14],4.60,11.25,14.47,0.50,69.19,0.33,e
+5,Karmakar and Datta [19],51.15,18.23,26.57,4.04,0.00,1.41,3.62
+6,Loha et al. [7],49.43,15.53,29.14,5.90,0.00,2.02,2.12
+7,Vecchione et al. [25],49.17,19.17,22.13,9.53,0.00,1.19,e
+8,Campoy et al. [28],14.60,13.80,16.90,5.20,49.50,0.00,e
+9,Loha et al. [17],13.00,14.30,20.50,2.80,49.40,0.09,e
+10,Sethupathy Subbaiah et al. [29],21.22,15.78,15.96,6.26,40.78,0.95,e
+11,Campoy et al. [23],31.20,22.90,35.80,10.20,0.00,0.00,e
+12,Campoy et al. [23],27.40,34.20,34.60,3.80,0.00,3.70,e

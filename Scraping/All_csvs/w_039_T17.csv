@@ -1,0 +1,9 @@
+0,1,2,3,4,5,6,7,8,9,10
+Bellouard et al.,,,,,,,,,,Solar Gasiﬁcation With Iron Oxide
+,"TABLE 2 | Total gas quantities produced during gasiﬁcation and pyrolysis at 1,100◦C.",,,,,,,,,
+Oxidizing agent,,,,,Gas production [mmol/gbiomass],,,,,LHV (MJ/kgbiomass)
+,H2,CO,CO2,CH4,C2H4,C2H2,CH3OH,H2O,Total,
+CO2,9.93,51.58,–,3.33,0.26,0.08,0.04,0.28,65.50,21.27
+H2O,26.64,26.26,4.76,4.24,0.65,0.09,0.02,–,62.66,18.8
+Fe2O3,23.49,18.61,9.07,2.10,0.01,0.02,0.02,0.32,53.64,13.06
+None (pyrolysis),13.12,17.54,2.93,4.16,0.58,0.08,0.02,0.18,38.60,12.72

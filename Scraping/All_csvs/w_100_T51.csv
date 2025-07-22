@@ -1,0 +1,51 @@
+0,1,2,3,4,5,6,7,8,9
+COMPONENT,UNITS,640,471,604,614,626,630,411B,631
+Total Flow,lb/hr,"410,305","349,903","4,088","177,601","415,415","410,302","349,903","410,302"
+Temperature,F,233,482,462,472,237,226,225,232
+Pressure,Psia,485.9,580.0,475.9,3.5,19.1,24.7,575.0,21.7
+Vapor Fraction,,-,1,-,1,-,-,1,-
+Hydrogen (H2),lb/hr,-,"22,254",-,-,-,-,"22,254",-
+Carbon Monoxide (CO),lb/hr,-,"91,963",-,-,-,-,"91,963",-
+Nitrogen (N2),lb/hr,-,"7,377",-,-,-,-,"7,377",-
+Oxygen (O2),lb/hr,-,-,-,-,-,-,-,-
+Argon (Ar),lb/hr,-,-,-,-,-,-,-,-
+Carbon Dioxide (CO2),lb/hr,-,"61,623",-,-,-,-,"61,623",-
+Water (H2O),lb/hr,"410,305","1,036","4,088","177,601","415,415","410,302","1,036","410,302"
+Hydrogen Sulfide (H2S),lb/hr,-,-,-,-,-,-,-,-
+Sulfur dioxide (SO2),lb/hr,-,-,-,-,-,-,-,-
+Ammonia (NH3),lb/hr,-,109,-,-,-,-,109,-
+Nitrogen dioxide (NO2),lb/hr,-,-,-,-,-,-,-,-
+Methane (CH4),lb/hr,-,"56,032",-,-,-,-,"56,032",-
+Ethane (C2H6),lb/hr,-,76,-,-,-,-,76,-
+Ethylene (C2H4),lb/hr,-,"11,051",-,-,-,-,"11,051",-
+Acetylene (C2H2),lb/hr,-,796,-,-,-,-,796,-
+Propane (C3H8),lb/hr,-,0,-,-,-,-,0,-
+Propene (C3H6),lb/hr,-,-,-,-,-,-,-,-
+I-Butane (C4H10),lb/hr,-,0,-,-,-,-,0,-
+N-Butane (C4H10),lb/hr,-,0,-,-,-,-,0,-
+Butenes (C4H8),lb/hr,-,-,-,-,-,-,-,-
+Pentanes (C5H12),lb/hr,-,0,-,-,-,-,0,-
+Pentenes (C5H10),lb/hr,-,-,-,-,-,-,-,-
+Hexanes (C6H14),lb/hr,-,-,-,-,-,-,-,-
+Hexenes (C6H12),lb/hr,-,-,-,-,-,-,-,-
+Benzene (C6H6),lb/hr,-,3,-,-,-,-,3,-
+Heptanes (C7H16),lb/hr,-,-,-,-,-,-,-,-
+Triptane,lb/hr,-,-,-,-,-,-,-,-
+Heptenes (C7H14),lb/hr,-,-,-,-,-,-,-,-
+Triptene,lb/hr,-,-,-,-,-,-,-,-
+Octanes (C8H18),lb/hr,-,-,-,-,-,-,-,-
+Octenes (C8H16),lb/hr,-,-,-,-,-,-,-,-
+N-Nonanes (C9H20),lb/hr,-,-,-,-,-,-,-,-
+N-Nonenes (C9H18),lb/hr,-,-,-,-,-,-,-,-
+Hexamethylbenzene (C6(CH3)6),lb/hr,-,-,-,-,-,-,-,-
+Tar (C10H8),lb/hr,-,0,-,-,-,-,0,-
+Carbon (Solid),lb/hr,-,-,-,-,-,-,-,-
+Sulfur (Solid),lb/hr,-,-,-,-,-,-,-,-
+Olivine + MgO (Solid),lb/hr,-,-,-,-,-,-,-,-
+Methanol (CH4O),lb/hr,-,"97,583",-,-,-,-,"97,583",-
+Dimethyl ether (C2H6O),lb/hr,-,-,-,-,-,-,-,-
+MDEA (C5H13NO2),lb/hr,-,-,-,-,-,-,-,-
+Ash,lb/hr,-,-,-,-,-,-,-,-
+Char,lb/hr,-,-,-,-,-,-,-,-
+Wood,lb/hr,-,-,-,-,-,-,-,-
+Enthalpy Flow,MMBTU/hr,"(2,736)",(686),(26),(994),"(2,769)","(2,739)",(739),"(2,737)"

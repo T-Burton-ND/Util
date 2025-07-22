@@ -1,0 +1,30 @@
+0,1,2,3,4,5,6,7
+,,,Table 6. Tar yield from different biomass used in BFB gasifier.,,,,
+Biomass,"MC,","T, oC",ER,"SB ratio,",Bed material,Tar content,Reference
+,(%wb),,,S/C ratio,,g/Nm3.daf,
+Rice husk,8.3,720,0.3,-,Silica sand,7.26,[143]
+,8.3,855,0.3,-,Silica sand,0.33,
+Chicken manure,11,700,0.34,-,Quartz sand,11.2,[61]
+,11,770,0.34,-,Quartz sand,1.92,
+Wood pellets,6.3,804,0.35,0.22,Ofite,-,[14]
+,6.3,789,0.33,0.45,Ofite,-,
+Coconut shell,8.55,850,-,2,Dolomite,7.63,[60]
+Wood pellets,9.8,850,0.25,1,Silica sand,38.79,[144]
+,9.8,850,0.25,1,Limestone,4.39,
+Straw pellets,10.3,850,0.25,1,Silica sand,35.32,
+,10.3,850,0.25,1,Limestone,9.85,
+Wood pellets,8.1,939,0.48,-,Silca sand,2.5,[145]
+,8.1,939,0.39,-,Silica sand,3.8,
+Cotton stalk chips,13.3,800,-,0.9,Olivine,19.72,[3]
+,13.3,700,-,0.9,Dolomite,31.34,
+,13.3,700,-,0.9,Olivine,39.20,
+,13.3,700,-,0.9,Quartz,52.14,
+,13.3,700,-,0.3,Olivine,136.95,
+,13.3,700,-,1.1,Olivine,38.1,
+Pine sawdust,23.5,800,0.32,-,Silica sand,-,[82]
+,21.0,800,0.37,-,Silica sand,-,
+,23,800,0.47,-,Silica sand,-,
+Almond shell,7.9,770,-,1,Sand,43,[97]
+,7.9,770,-,1,Dolomite,0.6,
+,7.9,770,-,1,Olivine,2.4,
+MC: moisture content; T: gasification temperature; SB ratio: steam to biomass ratio; S/C; steam to carbon ratio; daf: dry ash-free basis,,,,,,,

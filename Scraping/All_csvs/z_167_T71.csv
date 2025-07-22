@@ -1,0 +1,42 @@
+0,1,2,3,4,5,6,7,8
+,Gas,,,,,,,
+CO2,,Vol%,24.4,24.7,24.2,24.5,24.8,24.1
+,monitor,,,,,,,
+,Gas,,,,,,,
+CH4,,Vol%,11.4,11.7,11.4,11.4,13.3,12.2
+,monitor,,,,,,,
+,Gas,,,,,,,
+N2,,Vol%,1.4,1.4,1.4,1.6,2.9,2.3
+,monitor,,,,,,,
+,micro,,,,,,,
+C2H2,,Vol%,0.11,0.12,0.12,0.12,<0.001,<0.001
+,GC,,,,,,,
+,micro,,,,,,,
+C2H4,,Vol%,3.3,3.6,3.4,3.5,<0.001,<0.001
+,GC,,,,,,,
+,micro,,,,,,,
+C2H6,,Vol%,0.67,0.69,0.67,0.62,4.47,4.43
+,GC,,,,,,,
+,micro,,,,,,,
+Benzene,,ppmV,5972,5576,5897,109,122.5,<10
+,GC,,,,,,,
+,micro,,,,,,,
+Toluene,,ppmV,1911,1609,1848,<10,12.4,<10
+,GC,,,,,,,
+Sum C3,GC-FID,ppmV,3622,3113,4426,3290,3207,3380
+Sum C4,GC-FID,ppmV,1494,1368,1830,1033,379,10
+Sum C5,GC-FID,ppmV,809,736,851,171,31,<1
+Sum C6,GC-FID,ppmV,<1,<1,<1,<1,<1,<1
+H2S,S-GC,ppmV,1165,1111,0.9b,0.2c,8.9,<0.5e
+COS,S-GC,ppmV,31,55,50b,30c,0.7d,<0.5e
+Other S-,S-GC,ppmV,50,33 a,42b,1c,<0.5d,<0.5e
+Ne tracer,micro,,,,,,,
+,,ppmV,-,812,828,785,1121,768
+gas,GC,,,,,,,
+Ar tracer,micro,,,,,,,
+,,Vol%,2.3,2.4,2.3,2.3,2.9,2.2
+gas,GC,,,,,,,
+Tar,,,,,,,,
+,SPA,g/Nm3,21.2,nd,nd,nd,nd,nd
+content*,,,,,,,,
+Values are at Normal conditions at temperature of 0 °C (273.15 K) and absolute pressure of 1 atm (1.01325×105 Pa).,,,,,,,,

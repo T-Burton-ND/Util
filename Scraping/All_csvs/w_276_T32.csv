@@ -1,0 +1,40 @@
+0,1,2
+,Modeling Biomass Substrates for Syngas Generation by Using CFD Approaches,
+,,http://dx.doi.org/10.5772/65857
+Category,% Weight,Chemical formula
+,,*
+Cellulosic material,85.42,
+Polyethylene,10.99,ðC2H4Þn
+Polyethylene terephthalate,2.02,ðC10H8OÞn
+Polypropylene,0.81,ðC3H6Þn
+Polystyrene,0.76,ðC8H8Þn
+Table 1. Chemical composition of,the MSW in Oporto in 2014.,
+Substrate properties,Forest residues,PMSW
+Elementary analysis (dry ash free),,
+N (%),2.4 ± 0.3,1.4 ± 0.2
+C (%),43 ± 4.1,48 ± 4.4
+H (%),5 ± 0.6,6.3 ± 1.4
+O (%),49.6 ± 5.2,43.6 ± 3.6
+Humidity (%),11.3 ± 1.7,17.6 ± 2.3
+Density (Kg/m3),650 ± 70,247 ± 23
+Lower heating value (MJ/Kg biomass),21.2 ± 1.8,14.4 ± 1.1
+Mean particle size (mm),5 ± 2,20 ± 10
+Proximal analysis (%),,
+Ash,0.2 ± 0.1,14.9 ± 1.2
+Volatile matter,79.8 ± 3.1,76.62 ± 2.9
+Fixed carbon,20 ± 2.5,8.46 ± 1.5
+Table 2. Ultimate and proximate analyses of,forest residues and PMSW.,
+,a previously studied Portuguese biomass substrate will be used as benchmark. Forest residues,
+,"[17] (in pellet form) were selected for this purpose, since it revealed relevant energetic as well",
+as economic benefits.,,
+,"Prior to the actual gasification process, biomass analysis was carried out in the Laboratory of",
+,"Chemistry of the High School of Technology and Management located in Portalegre, Portugal,",
+,since biomass characteristics can provide valuable information on how the gasification process,
+,will occur. This kind of analysis also provides crucial data to treat the implemented numerical,
+model. The instruments used in the performed analysis are:,,thermal gravimetric analysis—
+,data for proximal analysis; elemental analysis—determination of biomass composition with,
+,"respect to the percentage of C, H, N, and O; humidity—sample moisture content assessment;",
+calorific value—appraisal of,energy contained in biomass. Data regarding proximate and,
+ultimate analysis for the referred substrates are presented in Table 2.,,
+,"It should be noted that regarding the experimental gasification runs, as well as the analyses for",
+,"the studied substrates, every run was performed twice in order to avoid measurements. When",

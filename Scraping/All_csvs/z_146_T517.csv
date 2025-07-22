@@ -1,0 +1,31 @@
+0,1,2,3
+SECOND STAGE -,,,
+IRON,,,
+Feed : TG from stage 1 plus,,,
+2768 nm3/h of added,,,
+H2,,,OPERATING PARAMETERS
+Flow (nm3/h),,28116,"Temperature 
+468 
+ oF"
+SCFD,,2.52E+07,"Pressure 
+291.20 
+psig"
+H2/CO in,,1.151,"44.10 
+psi 
+∆P"
+,Comp,,
+SYNGAS,(%),,"Recycle 
+1.20  mol/mol"
+H2,,34.90,
+CO,,30.32,SELECTIVITIES
+CH4,,3.02,"ALPHA 
+  
+0.92"
+CO2,,29.28,"CH4 SEL (Carbon %) 
+6.50"
+H2O,,0.00,"CO2 SEL ( Carbon %) 
+35.81"
+N2 + Ar,,2.08,"USAGE RATIO 
+0.629"
+C2-C4,,0.39,
+Totals,,100.00,

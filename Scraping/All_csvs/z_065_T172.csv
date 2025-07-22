@@ -1,0 +1,28 @@
+0,1,2,3
+Table 3.2. Series of experiments with similar conditions using 5 kg of K46,,,
+,and the same batch of pyrolysis oil.a,,
+Run,1,6,9
+Feed type,pine,pine,pine
+Liquid feed (kg/h),0.44,0.58,0.62
+Bed Type: sand (kg),5.1,5.1,5.1
+":
+inert (kg)",3.6,3.6,3.6
+: K46 (kg),5.0,5.0,5.0
+: K23 (kg),0.0,0.0,0.0
+T fluid bed (˚C),652,598,788
+T fixed bed (˚C),777,754,828
+S/C,2.7,2.4,2.2
+Carbon to Gas (%),67,63,61
+H2 yield (%),60,58,58
+,,Gas Production (Nm3/kg),
+H2,1.29,1.16,1.16
+CH4,0.00,0.00,0.00
+CO,0.28,0.27,0.25
+CO2,0.39,0.34,0.33
+C2-C3,0.00,0.00,0.00
+,,"Gas composition (vol%, N2 free)",
+H2,64.6,63.5,62.7
+CH4,0.0,0.1,0.0
+CO,14.0,14.9,13.7
+CO2,19.5,18.4,18.0
+C2-C3,0.0,0.0,0.0

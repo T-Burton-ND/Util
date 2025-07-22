@@ -1,0 +1,12 @@
+0,1,2,3,4,5
+Table 4. Inlet and Outlet Gas Composition Conversion from Low-Pressure,,,,,
+FT Reactor,,,,,
+Reactor Operating Condition:,Pressure:,115.00,psig,,
+,Temperature:,275.00,°C,,
+Syngas Species,,CO,CO2,H2,CH4
+"Gas Composition, vol%",Inlet,34.20,5.72,57.77,2.31
+,Outlet,27.96,10.86,55.62,5.56
+"Reactant Flow, mol/h",Inlet,1.01,0.17,1.71,0.07
+,Outlet,0.71,0.27,1.41,0.14
+"Conversion, %",,0.30,–0.11,0.30,–0.07
+,,30.07,–62.21,17.67,–106.35

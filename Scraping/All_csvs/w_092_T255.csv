@@ -1,0 +1,16 @@
+0,1,2,3,4,5,6
+,,Table 8.13. Feed composition for autothermal reforming experiments.,,,,
+,,Simulated gasifier feed,Reformer Add,,Total input,
+Species,sccm,vol %,sccm,vol %,sccm,vol %
+H2,720,24,,,720,11.66
+CO,1200,40,,,1200,19.43
+CO2,450,15,,,450,7.29
+CH4,420,14,,,420,6.80
+C2H4,150,5,,,150,2.43
+C7H8,60,2,,,60,0.97
+O2,,,428,13.46,428,6.92
+N2,,,1607,50.63,1607,26.03
+H2O,,,1140,35.91,1140,18.46
+Total,3000,,3175,,6175,
+O/C,,,,,0.75,
+H2O/C,,,,,2.00,
