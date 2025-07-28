@@ -95,10 +95,14 @@ def draw_molecule(smiles: str, output_file: str, multicolor: bool = True):
         f.write(drawer.GetDrawingText())
     print(f"[✓] Image saved to: {output_file}")
 
-def resolve_inchikey_to_smiles(inchikey: str) -> tuple[str, int] | None:
-
+def resolve_inchikey_to_smiles(inchikey: str) -> tuple[str, int, str] | None:
     """
-    Resolve InChIKey to SMILES using CID → InChI → RDKit fallback.
+    Resolve InChIKey to SMILES using CID → PubChem SMILES → RDKit canonical SMILES.
+
+    Returns
+    -------
+    tuple
+        (rdkit_canonical_smiles, cid, pubchem_smiles)
     """
     try:
         # Step 1: resolve CID from InChIKey
@@ -107,27 +111,21 @@ def resolve_inchikey_to_smiles(inchikey: str) -> tuple[str, int] | None:
         cid_resp.raise_for_status()
         cid = cid_resp.json()["IdentifierList"]["CID"][0]
 
-        # Step 2: try to get CanonicalSMILES
+        # Step 2: get PubChem Canonical SMILES
         smiles_url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{cid}/property/CanonicalSMILES/JSON"
         smiles_resp = requests.get(smiles_url, timeout=10)
         smiles_resp.raise_for_status()
 
         props = smiles_resp.json()["PropertyTable"]["Properties"][0]
-        if "CanonicalSMILES" in props:
-            return props["CanonicalSMILES"], cid
+        pubchem_smiles = props["CanonicalSMILES"]
 
-        # Step 3: fallback to InChI if SMILES is missing
-        inchi_url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{cid}/property/InChI/JSON"
-        inchi_resp = requests.get(inchi_url, timeout=10)
-        inchi_resp.raise_for_status()
-        inchi = inchi_resp.json()["PropertyTable"]["Properties"][0]["InChI"]
-
-        mol = Chem.MolFromInchi(inchi)
+        # Step 3: Canonicalize via RDKit
+        mol = Chem.MolFromSmiles(pubchem_smiles)
         if mol:
-            return Chem.MolToSmiles(mol, canonical=True), cid
-
+            rdkit_smiles = Chem.MolToSmiles(mol, canonical=True)
+            return rdkit_smiles, cid, pubchem_smiles
         else:
-            print(f"[!] InChI retrieved but could not be parsed by RDKit: {inchi}")
+            print(f"[!] PubChem SMILES could not be parsed by RDKit: {pubchem_smiles}")
             return None
 
     except Exception as e:
@@ -135,19 +133,16 @@ def resolve_inchikey_to_smiles(inchikey: str) -> tuple[str, int] | None:
         return None
 
 
-def get_smiles_from_input(input_str: str) -> str:
+
+def get_smiles_from_input(input_str: str) -> tuple[str, str, int | None]:
     """
-    Get SMILES string from input (SMILES, InChI, or InChIKey).
+    Get RDKit-canonical SMILES from input (SMILES, InChI, or InChIKey),
+    and return original as well.
 
     Returns
     -------
-    str
-        A canonical or valid SMILES string.
-
-    Raises
-    ------
-    ValueError
-        If the input cannot be resolved to a molecule.
+    tuple
+        (rdkit_smiles, original_input_smiles, cid or None)
     """
     input_type = identify_input_type(input_str)
 
@@ -155,23 +150,27 @@ def get_smiles_from_input(input_str: str) -> str:
         mol = Chem.MolFromSmiles(input_str)
         if not mol:
             raise ValueError(f"Invalid SMILES: {input_str}")
-        return Chem.MolToSmiles(mol, canonical=True)
+        rdkit_smiles = Chem.MolToSmiles(mol, canonical=True)
+        return rdkit_smiles, input_str, resolve_smiles_or_inchi_to_cid(input_str, "smiles")
 
     elif input_type == "inchi":
         mol = Chem.MolFromInchi(input_str)
         if not mol:
             raise ValueError(f"Invalid InChI: {input_str}")
-        return Chem.MolToSmiles(mol, canonical=True)
+        rdkit_smiles = Chem.MolToSmiles(mol, canonical=True)
+        return rdkit_smiles, input_str, resolve_smiles_or_inchi_to_cid(input_str, "inchi")
 
     elif input_type == "inchikey":
-        smiles = resolve_inchikey_to_smiles(input_str)
-        if smiles:
-            return smiles
+        result = resolve_inchikey_to_smiles(input_str)
+        if result:
+            rdkit_smiles, cid, pubchem_smiles = result
+            return rdkit_smiles, pubchem_smiles, cid
         else:
             raise ValueError(f"Could not resolve InChIKey: {input_str}")
 
     else:
         raise ValueError("Unsupported input format.")
+
 
 def get_iupac_name_from_cid(cid: int) -> str | None:
     """
@@ -296,6 +295,28 @@ def score_common_name(name: str) -> int:
         score += 2
     return score
 
+def get_inchi_and_inchikey_from_cid(cid: int) -> tuple[str, str] | None:
+    """
+    Retrieve InChI and InChIKey from a PubChem CID.
+
+    Parameters
+    ----------
+    cid : int
+        PubChem Compound ID.
+
+    Returns
+    -------
+    tuple of (InChI, InChIKey), or None
+    """
+    try:
+        url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{cid}/property/InChI,InChIKey/JSON"
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        props = response.json()["PropertyTable"]["Properties"][0]
+        return props["InChI"], props["InChIKey"]
+    except Exception as e:
+        print(f"[!] InChI/InChIKey lookup failed: {e}")
+        return None
 
 
 # ------------------------------------------------------------------------------
@@ -318,26 +339,35 @@ if __name__ == "__main__":
     try:
         input_type = identify_input_type(args.input)
 
-        smiles = None
+        rdkit_smiles = None
+        original_smiles = None
         cid = None
 
-        # --- Handle InChIKey ---
+        # --- Handle all input types uniformly ---
+        rdkit_smiles, original_smiles, cid = get_smiles_from_input(args.input)
+
+        # --- Show PubChem SMILES if input was InChIKey ---
         if input_type == "inchikey":
-            result = resolve_inchikey_to_smiles(args.input)
-            if result is None:
-                raise ValueError(f"Could not resolve InChIKey: {args.input}")
-            smiles, cid = result
+            print(f"[✓] PubChem SMILES: {original_smiles}")
+            print(f"[✓] RDKit Canonical SMILES: {rdkit_smiles}")
 
-        # --- Handle SMILES or InChI ---
+        # --- Show both if original SMILES differs ---
+        elif input_type == "smiles" and original_smiles != rdkit_smiles:
+            print(f"[✓] Input SMILES (original): {original_smiles}")
+            print(f"[✓] RDKit Canonical SMILES: {rdkit_smiles}")
+
+        # --- Show canonicalized SMILES directly ---
         else:
-            smiles = get_smiles_from_input(args.input)
-            cid = resolve_smiles_or_inchi_to_cid(args.input, input_type)
+            print(f"[✓] SMILES (canonicalized): {rdkit_smiles}")
 
-        # --- Output SMILES ---
-        print(f"[✓] SMILES: {smiles}")
-
-        # --- If we have CID, show names ---
+        # --- If we have CID, show identifiers and names ---
         if cid:
+            inchi_info = get_inchi_and_inchikey_from_cid(cid)
+            if inchi_info:
+                inchi, inchikey = inchi_info
+                print(f"[✓] InChI: {inchi}")
+                print(f"[✓] InChIKey: {inchikey}")
+
             iupac = get_iupac_name_from_cid(cid)
             if iupac:
                 print(f"[✓] IUPAC name: {iupac}")
@@ -346,11 +376,9 @@ if __name__ == "__main__":
             if common_names:
                 print(f"[✓] Common names: {', '.join(common_names)}")
 
-        # --- Draw image ---
-        output_path = args.output or f"{sanitize_filename(smiles)}_viz.png"
-        draw_molecule(smiles, output_path, multicolor=not args.no_multicolor)
+        # --- Draw image from RDKit canonical SMILES ---
+        output_path = args.output or f"{sanitize_filename(rdkit_smiles)}_viz.png"
+        draw_molecule(rdkit_smiles, output_path, multicolor=not args.no_multicolor)
 
     except Exception as e:
         print(f"[✗] Error: {e}")
-
-
