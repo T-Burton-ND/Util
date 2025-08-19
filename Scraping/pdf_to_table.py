@@ -1,12 +1,31 @@
 #!/usr/bin/env python3
 """
-extract_all_tables.py
 
-Extracts tables from every PDF in a directory and saves all useful tables
-into a single combined CSV file.
-
-Usage:
-    python pdf_to_table.py -d path/to/pdf_dir
+-extract_all_tables.py
+-
+-Extracts tables from every PDF in a directory and saves all useful tables
+-into a single combined CSV file.
+-
+-Usage:
+-    python pdf_to_table.py -d path/to/pdf_dir
+"""
+"""
++pdf_to_table.py — Extract numeric-ish tables from PDFs into CSV
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++Extracts tables from every PDF in a directory and saves (a) per‑PDF CSVs
++and (b) a single combined CSV of useful tables (numeric‑leaning heuristic).
++
++Usage
++-----
++python pdf_to_table.py -d path/to/pdf_dir
++
++Examples
++--------
++python pdf_to_table.py -d ./papers
++
++Dependencies
++------------
++camelot-py, ghostscript, opencv, tk, pdfplumber (optional), pandas, tqdm
 """
 
 import argparse

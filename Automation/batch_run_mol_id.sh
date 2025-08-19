@@ -6,6 +6,22 @@
 # Usage  : ./batch_run_mol_id.sh
 # ------------------------------------------------------------------------------
 
+# batch_run_mol_id.sh — Batch metadata extraction via mol_id.py
+# -------------------------------------------------------------
+# Feeds a predefined list of molecules (SMILES or InChIKeys) to Visualization_Scripts/mol_id.py,
+# captures RDKit canonical SMILES / InChI / InChIKey / IUPAC / common names, and writes a CSV.
+#
+# Usage:
+#   ./batch_run_mol_id.sh
+#
+# Output:
+#   mol_metadata.csv  (columns: input_string, rdkit_smiles, inchi, inchikey, iupac_name, common_names, n_carbons)
+#
+# Dependencies:
+#   python with rdkit+requests, grep, sed, wc, tr
+#
+# Notes:
+#   Adjust the 'inputs' array below as needed. The script calls ../Visualization_Scripts/mol_id.py.
 # Define input molecules (SMILES or InChIKey strings)
 inputs=(
   'O=C1OCCO1'

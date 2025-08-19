@@ -1,6 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
+# bulk_mol_id.sh — Batch molecule rendering + metadata rename
+# -----------------------------------------------------------
+# Runs mol_id.py on a list of SMILES strings and, when available, renames the
+# generated image file using the IUPAC name. Handles temporary logs, unique
+# filenames, and safe sanitization of output names.
+#
+# Usage:
+#   PYTHON_BIN=python3 bash bulk_mol_id.sh
+#
+# Environment variables:
+#   PYTHON_BIN   Python executable to use (default: python)
+#
+# Dependencies:
+#   python (with rdkit + requests installed), awk, sed, tee, mktemp
+#
+# Examples:
+#   bash bulk_mol_id.sh
+#   PYTHON_BIN=/users/tburton2/.conda/envs/util_env/bin/python bash bulk_mol_id.sh
 # ---- Config ----
 PYTHON_BIN="${PYTHON_BIN:-python}"   # override: PYTHON_BIN=python3 bash bulk_mol_id.sh
 

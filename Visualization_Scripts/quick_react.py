@@ -1,14 +1,32 @@
-#!/usr/bin/env python3
 """
-quick_react.py
+-quick_react.py
 
-Usage:
+-Usage:
     python quick_react.py your_trajectory.xyz
 
-Description:
+-Description:
     Loads a multi-frame XYZ trajectory, infers bonds manually using covalent
     radii and a bond cutoff, and creates a rocking (forward-reverse) GIF
     animation using matplotlib. Works with older versions of ASE.
+"""
+"""
+quick_react.py — Rocking GIFs from XYZ trajectories
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Loads a multi-frame XYZ trajectory, infers bonds manually using covalent
+radii and a bond cutoff, and creates a rocking (forward-reverse) GIF
+animation using matplotlib. Works with older versions of ASE.
+
+Usage
+-----
+python quick_react.py your_trajectory.xyz
+
+Examples
+--------
+python quick_react.py reaction_path.xyz
+
+Dependencies
+------------
+ase, matplotlib, pillow, numpy
 """
 
 import os

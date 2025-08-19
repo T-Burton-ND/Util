@@ -1,5 +1,26 @@
 #!/bin/bash
-
+# gif_from_mov.sh — Convert .mov to .gif with tunable settings
+# ------------------------------------------------------------
+# Short description:
+#   Wraps ffmpeg to produce an animated GIF from a .mov file, with configurable
+#   duration, output width, FPS, and loop count. Creates the output folder if
+#   needed and preserves aspect ratio (even dimensions via pad).
+#
+# Usage:
+#   ./gif_from_mov.sh path/to/input.mov path/to/output_folder
+#
+# Options (edit variables at top of file):
+#   DURATION      Length of GIF in seconds            (default: 10)
+#   SCALE_WIDTH   Output width in pixels              (default: 480)
+#   FPS           Frames per second                   (default: 15)
+#   LOOP          0=infinite, 1=once, etc.           (default: 0)
+#
+# Dependencies:
+#   ffmpeg
+#
+# Examples:
+#   ./gif_from_mov.sh video.mov ./gifs
+#   DURATION=6 FPS=12 SCALE_WIDTH=600 ./gif_from_mov.sh input.mov outdir
 # =================== User Configurable Parameters ===================
 DURATION=10        # Length of GIF in seconds
 SCALE_WIDTH=480    # Output width in pixels (height auto-adjusts)
