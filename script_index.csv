@@ -3,6 +3,7 @@ Scraping/csv_to_excel.py,Python,Combine CSV files into an Excel workbook.,"usage
 [--engine {xlsxwriter,openpyxl}] [--version]
 directory",152,2025-08-20,Scraping
 Scraping/pdf_to_table.py,Python,Extract numeric-ish tables from PDFs into per-PDF CSVs and a combined CSV.,usage: pdf_to_table.py [-h] -d DIR [--version],121,2025-08-20,Scraping
+<<<<<<< HEAD
 Scraping/semantic_scraper.py,Python,Scrape numeric-leaning tables from OA PDFs via Semantic Scholar.,usage: semantic_scraper.py [-h] [-n NUM] -q QUERY [-o OUTDIR] [--version],455,2025-08-20,Scraping
 Starting_Points/bash_template.sh,Bash,Examples:,,31,2025-08-20,Other
 Starting_Points/python_template.py,Python,"Short, human-readable sentence about what this script does.",usage: python_template.py [-h] -i INPUT [-o OUTPUT],34,2025-08-20,Other
@@ -14,6 +15,16 @@ Visualization_Scripts/quick_react.py,Python,Create a rocking (forward-then-back)
 [--outdir OUTDIR] [--gif GIF] [--version]
 xyz",161,2025-08-20,Visualization
 update_readme.py,Python,Auto-update README tables from repository scripts (help-only).,"usage: update_readme.py [-h] [--repo-root REPO_ROOT] [--readme README]
+=======
+Scraping/semantic_scraper.py,Python,Traceback (most recent call last):,,455,2025-08-20,Scraping
+Starting_Points/bash_template.sh,Bash,<file_name>.sh — <one-line summary>,,31,2025-08-20,Other
+Starting_Points/python_template.py,Python,"Short, human-readable sentence about what this script does.",usage: python_template.py [-h] -i INPUT [-o OUTPUT],34,2025-08-20,Other
+Visualization_Scripts/bulk_mol_id.sh,Bash,bulk_mol_id.sh — Batch molecule rendering + metadata rename,,112,2025-08-20,Visualization
+Visualization_Scripts/gif_from_mov.sh,Bash,gif_from_mov.sh — Convert .mov to .gif with tunable settings,,61,2025-08-20,Visualization
+Visualization_Scripts/mol_id.py,Python,Traceback (most recent call last):,,347,2025-08-20,Visualization
+Visualization_Scripts/quick_react.py,Python,Traceback (most recent call last):,,161,2025-08-20,Visualization
+update_readme.py,Python,[--include-ext [INCLUDE_EXT ...]],"usage: update_readme.py [-h] [--repo-root REPO_ROOT] [--readme README]
+>>>>>>> 76f77672b89b971222bd697983c7ed8348117ce1
 [--include-ext [INCLUDE_EXT ...]]
 [--exclude-dirs [EXCLUDE_DIRS ...]]
 [--no-ignore-hidden] [--write] [--write-index]",353,2025-08-20,Other
