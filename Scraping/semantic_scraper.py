@@ -2,42 +2,45 @@
 """
 semantic_scraper.py
 ────────────────────────────────────────────────────────────────────────
-A beginner-friendly pipeline that
-
-1. queries the **Semantic Scholar Graph API** for open-access (OA) papers,
-2. downloads their PDFs (robustly and resumably),
-3. extracts every table the PDF parser can detect,
-4. keeps only tables that look numeric (→ e.g. diesel / elemental analysis),
-5. writes a run summary + full log so you can audit failures.
+Beginner-friendly pipeline to:
+1) query the Semantic Scholar Graph API for open-access (OA) papers,
+2) robustly download PDFs (with resume/redirect handling),
+3) extract every table found by the PDF parser(s),
+4) keep only numeric-leaning tables,
+5) write a run summary + full log for auditing.
 
 The script prints **only tqdm progress bars** to the terminal; everything
 else (warnings, retries, bad URLs, etc.) is written to *scrape.log* in the
 output directory.
 
-DEPENDENCIES  (conda-forge versions recommended)
-─────────────────────────────────────────────────
-  requests, pandas, tqdm, PyYAML
-  camelot-py, ghostscript, opencv, tk         ← Camelot backend
-  pdfplumber   (optional, OCR fallback)
+Dependencies (conda-forge recommended)
+--------------------------------------
+requests, pandas, tqdm, PyYAML
+camelot-py, ghostscript, opencv, tk         ← Camelot backend
+pdfplumber   (optional, OCR fallback)
 
 Example install:
-    conda install -c conda-forge requests pandas tqdm pyyaml \
-                  camelot-py ghostscript opencv tk pdfplumber
-────────────────────────────────────────────────────────────────────────
+  conda install -c conda-forge requests pandas tqdm pyyaml \
+        camelot-py ghostscript opencv tk pdfplumber
 
-Author: Thomas J. Burton – Savoie Research Group, University of Notre Dame
-Updated: 2025-06-06
-License: MIT
-────────────────────────────────────────────────────────────────────────
-Usage:
-python semantic_scraper.py -q 'Keyword Search" -n 999 -o output_dir -s tabs
+Usage
+-----
+python semantic_scraper.py -q "diesel composition" -n 200 -o ./out_dir
+
+Examples
+--------
+# Basic query with 200 papers
+python semantic_scraper.py -q "diesel composition" -n 200 -o diesel_out
+
+# Smaller run with default output folder
+python semantic_scraper.py -q "elemental analysis" -n 50
 """
 
 # ╭────────────────── USER-TUNABLE CONSTANTS ──────────────────────────╮
 NUMERIC_RATIO_MIN = 0.20   # ≥ 20 % of data cells contain digits → keep
 NUMERIC_CELLS_MIN = 9      # minimum absolute number of numeric cells
 REQUEST_DELAY     = 3      # s between anonymous API calls
-MAX_DL_THREADS    = 6      # parallel downloads; tweak to bandDownlwidth
+MAX_DL_THREADS    = 6      # parallel downloads; tweak to bandwidth
 # ╰────────────────────────────────────────────────────────────────────╯
 
 import argparse
@@ -56,7 +59,9 @@ from typing import Dict, List, Tuple
 import pandas as pd
 import requests
 from tqdm import tqdm
-import time
+import time  # (kept as-is; duplicate import ok)
+
+__version__ = "0.1.0"
 
 # ────────────────────────── Silence noisy warnings ───────────────────
 warnings.filterwarnings(
@@ -346,32 +351,49 @@ def extract_tables_worker(
 
     return idx, saved
 
-# ╭───────────────────────────── main() ──────────────────────────────╮
-def main() -> None:
-    start_date_time = time.localtime()
-    # ── CLI parsing ──────────────────────────────────────────────────
-    ap = argparse.ArgumentParser(
+# ╭───────────────────────────── CLI builder ─────────────────────────╮
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(
+        prog="semantic_scraper.py",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        description="Scrape numeric composition tables from OA PDFs.",
+        description="Scrape numeric-leaning tables from OA PDFs via Semantic Scholar.",
+        epilog=textwrap.dedent(
+            """\
+            Usage:
+              python semantic_scraper.py -q "diesel composition" -n 200 -o ./out_dir
+
+            Examples:
+              # Basic query with 200 papers
+              python semantic_scraper.py -q "diesel composition" -n 200 -o diesel_out
+
+              # Smaller run with default output folder
+              python semantic_scraper.py -q "elemental analysis" -n 50
+            """
+        ),
     )
-    ap.add_argument(
-        "-n",
-        "--num",
-        type=int,
-        default=999,
+    p.add_argument(
+        "-n", "--num", type=int, default=999,
         help="Number of papers to process (≤1000 per query)",
     )
-    ap.add_argument(
-        "-q",
-        "--query",
+    p.add_argument(
+        "-q", "--query", required=True,
         help="Search string (use quotes for multi-word)",
     )
-    ap.add_argument(
-        "-o",
-        "--outdir",
-        default=f"semantic_scraper_output_{start_date_time:.0f}",
+    # Fix default folder name to a timestamp string (previous struct_time formatting would error)
+    timestamp = time.strftime("%Y%m%d_%H%M%S", time.localtime())
+    p.add_argument(
+        "-o", "--outdir", default=f"semantic_scraper_output_{timestamp}",
         help="Output directory (can be on external drive)",
     )
+    p.add_argument(
+        "--version", action="version", version=f"%(prog)s {__version__}"
+    )
+    return p
+
+# ╭───────────────────────────── main() ──────────────────────────────╮
+def main() -> None:
+    # parse args
+    ap = build_parser()
     args = ap.parse_args()
 
     # ── Prepare folders ──────────────────────────────────────────────

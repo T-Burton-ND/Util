@@ -96,6 +96,18 @@ class ScriptInfo:
     def name(self) -> str:
         return self.path.name
 
+    def to_dict(self) -> Dict[str, str | int]:
+        # JSON/CSV-friendly representation
+        return {
+            "path": self.relpath,
+            "language": self.language,
+            "description": self.description,
+            "usage": self.usage,
+            "loc": self.loc,
+            "modified": self.modified,
+            "category": self.category,
+        }
+
 # ─────────────────────────────────────────────────────────────────────
 # Helpers
 # ─────────────────────────────────────────────────────────────────────
@@ -177,7 +189,8 @@ def extract_usage_block(help_text: str) -> str:
 
 def try_help(path: Path) -> str:
     """
-    Attempt to capture --help/-h. Python uses '-h', Bash uses '--help'.
+    Attempt to capture --help/-h. Python uses '-h', Bash prefers '--help'.
+    Falls back to 'bash <script> --help' if the script isn't executable.
     """
     try_cmds = []
     if path.suffix == ".py":
@@ -189,6 +202,8 @@ def try_help(path: Path) -> str:
         try_cmds = [
             [str(path), "--help"],
             [str(path), "-h"],
+            ["bash", str(path), "--help"],  # fallback when not executable
+            ["bash", str(path), "-h"],
         ]
 
     for cmd in try_cmds:
@@ -267,8 +282,11 @@ def load_readme(path: Path) -> str:
 def write_index_files(scripts: List[ScriptInfo], root: Path) -> None:
     if not scripts:
         return
-    data = [asdict(s) for s in scripts]
-    (root / "script_index.json").write_text(json.dumps(data, indent=2), encoding="utf-8")
+    data = [s.to_dict() for s in scripts]
+    (root / "script_index.json").write_text(
+        json.dumps(data, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
     with (root / "script_index.csv").open("w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=list(data[0].keys()))
         w.writeheader()

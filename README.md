@@ -17,7 +17,7 @@ util/
 ## 📜 Script Overview
 
 <!-- BEGIN AUTO-OVERVIEW -->
-**Inventory summary** — 11 scripts (Python: 7, Bash: 4) • Automation: 1 • Other: 3 • Scraping: 3 • Visualization: 4 • Last scan: 2025-08-20 09:20
+**Inventory summary** — 10 scripts (Python: 7, Bash: 3) • Other: 3 • Scraping: 3 • Visualization: 4 • Last scan: 2025-08-20 11:08
 
 <!-- END AUTO-OVERVIEW -->
 
@@ -26,42 +26,38 @@ util/
 ## 🔧 Detailed Inventory
 
 <!-- BEGIN AUTO-SCRIPTS -->
-### 🔹 Automation
-
-| Script | Lang | Description | Usage | LOC | Modified |
-|---|---|---|---|---|---|
-| [`batch_run_mol_id.sh`](Automation/batch_run_mol_id.sh) | Bash | [•] Processing: O=C1OCCO1 |  | 93 | 2025-08-19 |
-
 ### 🔹 Other
 
 | Script | Lang | Description | Usage | LOC | Modified |
 |---|---|---|---|---|---|
-| [`bash_template.sh`](Templates/bash_template.sh) | Bash | No --help detected |  | 35 | 2025-08-19 |
-| [`python_template.py`](Templates/python_template.py) | Python | No --help detected | usage: python_template.py [-h] -i INPUT [-o OUTPUT] | 34 | 2025-08-19 |
+| [`bash_template.sh`](Starting_Points/bash_template.sh) | Bash | <file_name>.sh — <one-line summary> |  | 31 | 2025-08-20 |
+| [`python_template.py`](Starting_Points/python_template.py) | Python | No --help detected | usage: python_template.py [-h] -i INPUT [-o OUTPUT] | 34 | 2025-08-20 |
 | [`update_readme.py`](update_readme.py) | Python | No --help detected | usage: update_readme.py [-h] [--repo-root REPO_ROOT] [--readme README]
 [--include-ext [INCLUDE_EXT ...]]
 [--exclude-dirs [EXCLUDE_DIRS ...]]
-[--no-ignore-hidden] [--write] [--write-index] | 315 | 2025-08-20 |
+[--no-ignore-hidden] [--write] [--write-index] | 332 | 2025-08-20 |
 
 ### 🔹 Scraping
 
 | Script | Lang | Description | Usage | LOC | Modified |
 |---|---|---|---|---|---|
-| [`csv_to_excel.py`](Scraping/csv_to_excel.py) | Python | No --help detected | usage: csv_to_excel.py [-h] [-o OUTPUT] [-r] [-s {tabs,single}]
-[--engine {xlsxwriter,openpyxl}]
-directory | 141 | 2025-06-19 |
-| [`pdf_to_table.py`](Scraping/pdf_to_table.py) | Python | No --help detected | usage: pdf_to_table.py [-h] -d DIR | 113 | 2025-08-19 |
-| [`semantic_scraper.py`](Scraping/semantic_scraper.py) | Python | ❌  Camelot missing. |  | 438 | 2025-06-18 |
+| [`csv_to_excel.py`](Scraping/csv_to_excel.py) | Python | No --help detected | usage: combine_csv_to_excel.py [-h] [-o OUTPUT] [-r] [-s {tabs,single}]
+[--engine {xlsxwriter,openpyxl}] [--version]
+directory | 152 | 2025-08-20 |
+| [`pdf_to_table.py`](Scraping/pdf_to_table.py) | Python | No --help detected | usage: pdf_to_table.py [-h] -d DIR [--version] | 121 | 2025-08-20 |
+| [`semantic_scraper.py`](Scraping/semantic_scraper.py) | Python | No --help detected | usage: semantic_scraper.py [-h] [-n NUM] -q QUERY [-o OUTDIR] [--version] | 455 | 2025-08-20 |
 
 ### 🔹 Visualization
 
 | Script | Lang | Description | Usage | LOC | Modified |
 |---|---|---|---|---|---|
-| [`bulk_mol_id.sh`](Visualization_Scripts/bulk_mol_id.sh) | Bash | [!] mol_id.py failed for: O=CCO |  | 97 | 2025-08-19 |
-| [`gif_from_mov.sh`](Visualization_Scripts/gif_from_mov.sh) | Bash | No --help detected | Usage: /Users/tburton2/Desktop/Repos/Util/Visualization_Scripts/gif_from_mov.sh path/to/input.mov path/to/output_folder
-Example: ./gif_from_mov.sh input.mov ./gifs | 48 | 2025-08-19 |
-| [`mol_id.py`](Visualization_Scripts/mol_id.py) | Python | No --help detected | usage: mol_id.py [-h] [-o OUTPUT] [--no-multicolor] input | 319 | 2025-08-07 |
-| [`quick_react.py`](Visualization_Scripts/quick_react.py) | Python | [✓] Loading: -h |  | 129 | 2025-08-19 |
+| [`bulk_mol_id.sh`](Visualization_Scripts/bulk_mol_id.sh) | Bash | bulk_mol_id.sh — Batch molecule rendering + metadata rename |  | 112 | 2025-08-20 |
+| [`gif_from_mov.sh`](Visualization_Scripts/gif_from_mov.sh) | Bash | gif_from_mov.sh — Convert .mov to .gif with tunable settings |  | 61 | 2025-08-20 |
+| [`mol_id.py`](Visualization_Scripts/mol_id.py) | Python | No --help detected | usage: mol_id.py [-h] [-o OUTPUT] [--no-multicolor] [--version] input | 347 | 2025-08-20 |
+| [`quick_react.py`](Visualization_Scripts/quick_react.py) | Python | No --help detected | usage: quick_react.py [-h] [--bond-cutoff BOND_CUTOFF] [--size W H]
+[--dpi DPI] [--ms MS] [--frame-digits FRAME_DIGITS]
+[--outdir OUTDIR] [--gif GIF] [--version]
+xyz | 161 | 2025-08-20 |
 <!-- END AUTO-SCRIPTS -->
 
 ---

@@ -21,6 +21,24 @@
 # Examples:
 #   ./gif_from_mov.sh video.mov ./gifs
 #   DURATION=6 FPS=12 SCALE_WIDTH=600 ./gif_from_mov.sh input.mov outdir
+# end help
+
+__VERSION__="0.1.0"
+
+usage() {
+  # Print the header comments above config section
+  sed -n '/^# gif_from_mov.sh/,/^# end help/p' "$0" | sed -E 's/^# ?//'
+  exit 0
+}
+
+# Handle -h/--help/--version
+for arg in "$@"; do
+  case "$arg" in
+    -h|--help) usage ;;
+    --version) echo "gif_from_mov.sh ${__VERSION__}"; exit 0 ;;
+  esac
+done
+
 # =================== User Configurable Parameters ===================
 DURATION=10        # Length of GIF in seconds
 SCALE_WIDTH=480    # Output width in pixels (height auto-adjusts)
@@ -28,9 +46,7 @@ FPS=15             # Frames per second for the GIF
 LOOP=0             # 0 = infinite loop, 1 = play once, etc.
 # ===================================================================
 
-# Usage: gif_from_mov.sh path/to/input.mov path/to/output_folder#
-
-# Check for required arguments
+# Require exactly 2 arguments (input .mov and output folder)
 if [ "$#" -ne 2 ]; then
     echo "Usage: $0 path/to/input.mov path/to/output_folder"
     echo "Example: ./gif_from_mov.sh input.mov ./gifs"

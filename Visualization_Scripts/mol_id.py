@@ -32,9 +32,12 @@ pip install requests
 import argparse
 import re
 import requests
+import textwrap
 from rdkit import Chem
 from rdkit.Chem import rdDepictor
 from rdkit.Chem.Draw.rdMolDraw2D import MolDraw2DCairo
+
+__version__ = "0.1.0"
 
 # ------------------------------------------------------------------------------
 # ACS 1996 Element Color Palette
@@ -323,12 +326,44 @@ def get_inchi_and_inchikey_from_cid(cid: int) -> tuple[str, str] | None:
 # CLI
 # ------------------------------------------------------------------------------
 
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(
+        prog="mol_id.py",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description="Draw a 2D molecule image from a SMILES, InChI, or InChIKey.",
+        epilog=textwrap.dedent(
+            """\
+            Usage:
+              python mol_id.py "CCO"
+              python mol_id.py "InChI=1S/CH4/h1H4"
+              python mol_id.py "LFQSCWFLJHTTHZ-UHFFFAOYSA-N"
+
+            Options:
+              --no-multicolor        Use black & white atoms
+              -o OUTPUT, --output OUTPUT
+                                     Custom output image path
+
+            Examples:
+              # Ethanol
+              python mol_id.py "CCO"
+
+              # Methane by InChI
+              python mol_id.py "InChI=1S/CH4/h1H4"
+
+              # Glucose by InChIKey
+              python mol_id.py "WQZGKKKJIJFFOK-GASJEMHNSA-N"
+            """
+        ),
+    )
+    p.add_argument("input", help="Molecule string (SMILES, InChI, or InChIKey)")
+    p.add_argument("-o", "--output", help="Output image filename (default: <smiles>_viz.png)")
+    p.add_argument("--no-multicolor", action="store_true", help="Disable ACS coloring (use black and white)")
+    p.add_argument("--version", action="version", version="%(prog)s " + __version__)
+    return p
+
+
 def parse_args():
-    parser = argparse.ArgumentParser(description="Draw a 2D molecule image from a SMILES, InChI, or InChIKey.")
-    parser.add_argument("input", help="Molecule string (SMILES, InChI, or InChIKey)")
-    parser.add_argument("-o", "--output", help="Output image filename (default: <smiles>_viz.png)")
-    parser.add_argument("--no-multicolor", action="store_true", help="Disable ACS coloring (use black and white)")
-    return parser.parse_args()
+    return build_parser().parse_args()
 
 # ------------------------------------------------------------------------------
 # Entrypoint

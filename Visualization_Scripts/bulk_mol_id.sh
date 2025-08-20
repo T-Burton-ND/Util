@@ -18,8 +18,26 @@ set -euo pipefail
 # Examples:
 #   bash bulk_mol_id.sh
 #   PYTHON_BIN=/users/tburton2/.conda/envs/util_env/bin/python bash bulk_mol_id.sh
+# end help
 # ---- Config ----
 PYTHON_BIN="${PYTHON_BIN:-python}"   # override: PYTHON_BIN=python3 bash bulk_mol_id.sh
+
+__VERSION__="0.1.0"
+
+# ---- Help ----
+usage() {
+  # Print header comment block up to the Config marker
+  sed -n '/^# bulk_mol_id.sh/,/^# end help/p' "$0" | sed -E 's/^# ?//'
+  exit 0
+}
+
+# Handle -h/--help/--version without changing core behavior
+for arg in "$@"; do
+  case "$arg" in
+    -h|--help) usage ;;
+    --version) echo "bulk_mol_id.sh ${__VERSION__}"; exit 0 ;;
+  esac
+done
 
 # ---- Inputs ----
 smiles=(

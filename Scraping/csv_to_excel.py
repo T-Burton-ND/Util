@@ -9,7 +9,7 @@ License: MIT
 Description
 -----------
 Walk through a directory, find every ``*.csv`` file, and write them into an
-Excel workbook.  Two layout styles are supported:
+Excel workbook. Two layout styles are supported:
 
 1. ``tabs``   – each CSV becomes its own worksheet (default).
 2. ``single`` – all CSVs are written sequentially in **one** worksheet,
@@ -17,7 +17,7 @@ Excel workbook.  Two layout styles are supported:
 
 Usage
 -----
-python csv_to_excel.py -r data/ -s single -o combined.xlsx
+python combine_csv_to_excel.py <directory> [-r] [-s {tabs,single}] [-o OUTPUT]
 
 Examples
 --------
@@ -56,12 +56,13 @@ def sanitize_sheet_name(name: str) -> str:
         name = name.replace(ch, "_")
     return name[:31] or "sheet"
 
+
 def csvs_to_excel(
     csv_paths: list[pathlib.Path],
     output_path: pathlib.Path,
     engine: str,
     style: str,
-    ) -> None:
+) -> None:
     """Write CSVs to Excel according to *style*."""
     if not csv_paths:
         sys.exit("No CSV files found.")
@@ -109,19 +110,29 @@ def csvs_to_excel(
 
     print(f"\nDone! Workbook saved to: {output_path.resolve()}")
 
+
 # --------------------------------------------------------------------------- #
 # CLI
 # --------------------------------------------------------------------------- #
+__version__ = "0.1.0"
+
+
 def make_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
+        prog="combine_csv_to_excel.py",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        description=textwrap.dedent(
+        description="Combine CSV files into an Excel workbook.",
+        epilog=textwrap.dedent(
             """\
-            Combine CSV files into an Excel workbook.
+            Usage:
+              python combine_csv_to_excel.py <directory> [-r] [-s {tabs,single}] [-o OUTPUT]
 
-            Layout styles:
-              tabs   – each CSV → separate worksheet  (default)
-              single – all CSVs → one worksheet, blank rows between tables
+            Examples:
+              # One worksheet per CSV (default)
+              python combine_csv_to_excel.py data/
+
+              # All tables on a single worksheet, separated by blank lines
+              python combine_csv_to_excel.py data/ -s single -o all_tables.xlsx
             """
         ),
     )
@@ -151,6 +162,11 @@ def make_parser() -> argparse.ArgumentParser:
         choices=["xlsxwriter", "openpyxl"],
         default="xlsxwriter",
         help="Excel writer engine (xlsxwriter faster; openpyxl pure-Python)",
+    )
+    p.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}",
     )
     return p
 
