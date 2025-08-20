@@ -3,7 +3,13 @@
 This repository contains a collection of utility scripts organized into categories for **automation**, **scraping**, and **visualization**. These scripts were developed for research computing, data extraction, and workflow acceleration. The sections below include **auto-generated blocks** that can be refreshed by running `update_readme.py`.
 
 ---
-![Python](https://img.shields.io/badge/python-3.8+-blue.svg
+![Contributions](https://img.shields.io/badge/contributions-welcome-orange.svg)
+
+![Python](https://img.shields.io/badge/language-Python-blue.svg?logo=python)
+
+![Bash](https://img.shields.io/badge/language-Bash-green.svg?logo=gnu-bash)
+
+
 ## 📂 Repository Structure (high-level)
 ```
 util/
@@ -73,8 +79,8 @@ util/
 
 ### Clone and set up environment
 ```bash
-git clone <your-repo-url> util
-cd util
+git clone https://github.com/T-Burton-ND/Util
+cd Util
 conda env create -f environment.yml
 conda activate util_env
 ```
@@ -122,7 +128,7 @@ The updater will:
 - Optionally write a machine-readable `script_index.json` and `.csv`
 
 ---
-![Contributions](https://img.shields.io/badge/contributions-welcome-orange.svg)
+
 ## 🤝 Contributing
 Pull requests are welcome! Please ensure scripts:
 - Include a short header docstring/help (`-h/--help`)
