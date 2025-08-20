@@ -20,8 +20,8 @@
   {
     "path": "Scraping/semantic_scraper.py",
     "language": "Python",
-    "description": "Traceback (most recent call last):",
-    "usage": "",
+    "description": "Scrape numeric-leaning tables from OA PDFs via Semantic Scholar.",
+    "usage": "usage: semantic_scraper.py [-h] [-n NUM] -q QUERY [-o OUTDIR] [--version]",
     "loc": 455,
     "modified": "2025-08-20",
     "category": "Scraping"
@@ -54,6 +54,15 @@
     "category": "Visualization"
   },
   {
+    "path": "Visualization_Scripts/callgraph.py",
+    "language": "Python",
+    "description": "Build and render a cleaned, layered call-graph SVG.",
+    "usage": "usage: callgraph.py [-h] [--mode {ast,trace}] [--harness HARNESS]\n[--limit-prefix LIMIT_PREFIX] [--out OUT] [--no-prune]\n[--prune-pattern PRUNE_PATTERN]\n[--layer-colors LAYER_COLORS [LAYER_COLORS ...]]\n[--max-depth MAX_DEPTH]\ncode_path function",
+    "loc": 342,
+    "modified": "2025-08-20",
+    "category": "Visualization"
+  },
+  {
     "path": "Visualization_Scripts/gif_from_mov.sh",
     "language": "Bash",
     "description": "Options (edit variables at top of file):",
@@ -63,10 +72,19 @@
     "category": "Visualization"
   },
   {
+    "path": "Visualization_Scripts/harness.py",
+    "language": "Python",
+    "description": "No --help detected",
+    "usage": "",
+    "loc": 9,
+    "modified": "2025-08-20",
+    "category": "Visualization"
+  },
+  {
     "path": "Visualization_Scripts/mol_id.py",
     "language": "Python",
-    "description": "Traceback (most recent call last):",
-    "usage": "",
+    "description": "Draw a 2D molecule image from a SMILES, InChI, or InChIKey.",
+    "usage": "usage: mol_id.py [-h] [-o OUTPUT] [--no-multicolor] [--version] input",
     "loc": 347,
     "modified": "2025-08-20",
     "category": "Visualization"
@@ -74,7 +92,7 @@
   {
     "path": "Visualization_Scripts/quick_react.py",
     "language": "Python",
-    "description": "[--dpi DPI] [--ms MS] [--frame-digits FRAME_DIGITS]",
+    "description": "Create a rocking (forward-then-back) GIF from a multi-frame XYZ trajectory.",
     "usage": "usage: quick_react.py [-h] [--bond-cutoff BOND_CUTOFF] [--size W H]\n[--dpi DPI] [--ms MS] [--frame-digits FRAME_DIGITS]\n[--outdir OUTDIR] [--gif GIF] [--version]\nxyz",
     "loc": 161,
     "modified": "2025-08-20",
