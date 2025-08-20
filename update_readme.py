@@ -145,25 +145,23 @@ def last_modified_iso(p: Path) -> str:
 
 def extract_description_from_help(help_text: str) -> str:
     """
-    Return the first non-empty line occurring before a 'Usage' header.
+    Return the first meaningful line from help text
+    (prefer before 'Usage', but fall back to after).
     """
-    lines = [ln.strip("` ").rstrip() for ln in help_text.splitlines()]
-    desc_lines = []
+    lines = [ln.strip("` ").rstrip() for ln in help_text.splitlines() if ln.strip()]
+
+    # 1. first non-empty line that isn’t "usage" or "options"
     for ln in lines:
-        if not ln:
-            # allow blank lines until we capture something meaningful
-            if desc_lines:
-                break
-            continue
         if re.match(r"(?i)usage\s*:?", ln):
-            break
-        # skip obvious flag-only lines
+            continue
+        if re.match(r"(?i)options\s*:?", ln):
+            continue
         if ln.startswith("-"):
             continue
-        desc_lines.append(ln)
-        # keep it short: first non-empty human line is enough
-        break
-    return desc_lines[0] if desc_lines else "No --help detected"
+        return ln
+
+    return "No --help detected"
+
 
 def extract_usage_block(help_text: str) -> str:
     """
@@ -195,8 +193,8 @@ def try_help(path: Path) -> str:
     try_cmds = []
     if path.suffix == ".py":
         try_cmds = [
-            [sys.executable, str(path), "-h"],
-            [sys.executable, str(path), "--help"],
+            ["python", str(path), "-h"],
+            ["python", str(path), "--help"],
         ]
     else:
         try_cmds = [

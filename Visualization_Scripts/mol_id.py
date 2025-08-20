@@ -334,24 +334,24 @@ def build_parser() -> argparse.ArgumentParser:
         epilog=textwrap.dedent(
             """\
             Usage:
-              python mol_id.py "CCO"
-              python mol_id.py "InChI=1S/CH4/h1H4"
-              python mol_id.py "LFQSCWFLJHTTHZ-UHFFFAOYSA-N"
+            python mol_id.py "CCO"
+            python mol_id.py "InChI=1S/CH4/h1H4"
+            python mol_id.py "LFQSCWFLJHTTHZ-UHFFFAOYSA-N"
 
             Options:
-              --no-multicolor        Use black & white atoms
-              -o OUTPUT, --output OUTPUT
-                                     Custom output image path
+            --no-multicolor        Use black & white atoms
+            -o OUTPUT, --output OUTPUT
+                                    Custom output image path
 
             Examples:
-              # Ethanol
-              python mol_id.py "CCO"
+            # Ethanol
+            python mol_id.py "CCO"
 
-              # Methane by InChI
-              python mol_id.py "InChI=1S/CH4/h1H4"
+            # Methane by InChI
+            python mol_id.py "InChI=1S/CH4/h1H4"
 
-              # Glucose by InChIKey
-              python mol_id.py "WQZGKKKJIJFFOK-GASJEMHNSA-N"
+            # Glucose by InChIKey
+            python mol_id.py "WQZGKKKJIJFFOK-GASJEMHNSA-N"
             """
         ),
     )
