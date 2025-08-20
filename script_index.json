@@ -1,0 +1,92 @@
+[
+  {
+    "path": "Scraping/csv_to_excel.py",
+    "language": "Python",
+    "description": "[--engine {xlsxwriter,openpyxl}] [--version]",
+    "usage": "usage: combine_csv_to_excel.py [-h] [-o OUTPUT] [-r] [-s {tabs,single}]\n[--engine {xlsxwriter,openpyxl}] [--version]\ndirectory",
+    "loc": 152,
+    "modified": "2025-08-20",
+    "category": "Scraping"
+  },
+  {
+    "path": "Scraping/pdf_to_table.py",
+    "language": "Python",
+    "description": "Extract numeric-ish tables from PDFs into per-PDF CSVs and a combined CSV.",
+    "usage": "usage: pdf_to_table.py [-h] -d DIR [--version]",
+    "loc": 121,
+    "modified": "2025-08-20",
+    "category": "Scraping"
+  },
+  {
+    "path": "Scraping/semantic_scraper.py",
+    "language": "Python",
+    "description": "Scrape numeric-leaning tables from OA PDFs via Semantic Scholar.",
+    "usage": "usage: semantic_scraper.py [-h] [-n NUM] -q QUERY [-o OUTDIR] [--version]",
+    "loc": 455,
+    "modified": "2025-08-20",
+    "category": "Scraping"
+  },
+  {
+    "path": "Starting_Points/bash_template.sh",
+    "language": "Bash",
+    "description": "<file_name>.sh — <one-line summary>",
+    "usage": "",
+    "loc": 31,
+    "modified": "2025-08-20",
+    "category": "Other"
+  },
+  {
+    "path": "Starting_Points/python_template.py",
+    "language": "Python",
+    "description": "Short, human-readable sentence about what this script does.",
+    "usage": "usage: python_template.py [-h] -i INPUT [-o OUTPUT]",
+    "loc": 34,
+    "modified": "2025-08-20",
+    "category": "Other"
+  },
+  {
+    "path": "Visualization_Scripts/bulk_mol_id.sh",
+    "language": "Bash",
+    "description": "bulk_mol_id.sh — Batch molecule rendering + metadata rename",
+    "usage": "",
+    "loc": 112,
+    "modified": "2025-08-20",
+    "category": "Visualization"
+  },
+  {
+    "path": "Visualization_Scripts/gif_from_mov.sh",
+    "language": "Bash",
+    "description": "gif_from_mov.sh — Convert .mov to .gif with tunable settings",
+    "usage": "",
+    "loc": 61,
+    "modified": "2025-08-20",
+    "category": "Visualization"
+  },
+  {
+    "path": "Visualization_Scripts/mol_id.py",
+    "language": "Python",
+    "description": "Draw a 2D molecule image from a SMILES, InChI, or InChIKey.",
+    "usage": "usage: mol_id.py [-h] [-o OUTPUT] [--no-multicolor] [--version] input",
+    "loc": 347,
+    "modified": "2025-08-20",
+    "category": "Visualization"
+  },
+  {
+    "path": "Visualization_Scripts/quick_react.py",
+    "language": "Python",
+    "description": "[--dpi DPI] [--ms MS] [--frame-digits FRAME_DIGITS]",
+    "usage": "usage: quick_react.py [-h] [--bond-cutoff BOND_CUTOFF] [--size W H]\n[--dpi DPI] [--ms MS] [--frame-digits FRAME_DIGITS]\n[--outdir OUTDIR] [--gif GIF] [--version]\nxyz",
+    "loc": 161,
+    "modified": "2025-08-20",
+    "category": "Visualization"
+  },
+  {
+    "path": "update_readme.py",
+    "language": "Python",
+    "description": "[--include-ext [INCLUDE_EXT ...]]",
+    "usage": "usage: update_readme.py [-h] [--repo-root REPO_ROOT] [--readme README]\n[--include-ext [INCLUDE_EXT ...]]\n[--exclude-dirs [EXCLUDE_DIRS ...]]\n[--no-ignore-hidden] [--write] [--write-index]",
+    "loc": 327,
+    "modified": "2025-08-20",
+    "category": "Other"
+  }
+]
