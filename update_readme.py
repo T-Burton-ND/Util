@@ -274,26 +274,23 @@ def scripts_to_markdown_tables(scripts: List[ScriptInfo]) -> str:
     def cell(s: str) -> str:
         if not s:
             return ""
-        # escape pipes; normalize tabs; convert newlines to <br>
-        s = s.replace("|", "\\|")
-        s = s.replace("\t", " ")
-        s = s.replace("\r\n", "\n").replace("\r", "\n").strip()
-        s = "<br>".join(line.strip() for line in s.split("\n") if line.strip())
-        # keep cells from exploding
-        return s if len(s) <= 800 else (s[:797] + "…")
+        s = s.replace("|", "\\|").strip()
+        s = s.replace("\r\n", "\n").replace("\r", "\n")
+        return " ".join(line.strip() for line in s.split("\n") if line.strip())
 
     out = []
     for cat in sorted(by_cat):
         out.append(f"### 🔹 {cat}\n")
-        out.append("| Script | Lang | Description | Usage | LOC | Modified |")
-        out.append("|---|---|---|---|---|---|")
+        out.append("| Script | Lang | Description | Modified |")
+        out.append("|---|---|---|---|")
         for s in sorted(by_cat[cat], key=lambda x: x.name.lower()):
             link = f"[`{s.name}`]({s.relpath})"
             out.append(
-                f"| {link} | {s.language} | {cell(s.description)} | {cell(s.usage)} | {s.loc} | {s.modified} |"
+                f"| {link} | {s.language} | {cell(s.description)} | {s.modified} |"
             )
         out.append("")  # blank line between categories
     return "\n".join(out).strip()
+
 
 
 def replace_block(text: str, begin: str, end: str, replacement: str) -> str:

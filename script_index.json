@@ -85,7 +85,7 @@
     "language": "Python",
     "description": "Auto-update README tables from repository scripts (help-only).",
     "usage": "usage: update_readme.py [-h] [--repo-root REPO_ROOT] [--readme README]\n[--include-ext [INCLUDE_EXT ...]]\n[--exclude-dirs [EXCLUDE_DIRS ...]]\n[--no-ignore-hidden] [--write] [--write-index]",
-    "loc": 357,
+    "loc": 353,
     "modified": "2025-08-20",
     "category": "Other"
   }
