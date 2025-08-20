@@ -1,19 +1,19 @@
 path,language,description,usage,loc,modified,category
-Scraping/csv_to_excel.py,Python,"[--engine {xlsxwriter,openpyxl}] [--version]","usage: combine_csv_to_excel.py [-h] [-o OUTPUT] [-r] [-s {tabs,single}]
+Scraping/csv_to_excel.py,Python,Combine CSV files into an Excel workbook.,"usage: combine_csv_to_excel.py [-h] [-o OUTPUT] [-r] [-s {tabs,single}]
 [--engine {xlsxwriter,openpyxl}] [--version]
 directory",152,2025-08-20,Scraping
 Scraping/pdf_to_table.py,Python,Extract numeric-ish tables from PDFs into per-PDF CSVs and a combined CSV.,usage: pdf_to_table.py [-h] -d DIR [--version],121,2025-08-20,Scraping
 Scraping/semantic_scraper.py,Python,Scrape numeric-leaning tables from OA PDFs via Semantic Scholar.,usage: semantic_scraper.py [-h] [-n NUM] -q QUERY [-o OUTDIR] [--version],455,2025-08-20,Scraping
-Starting_Points/bash_template.sh,Bash,<file_name>.sh — <one-line summary>,,31,2025-08-20,Other
+Starting_Points/bash_template.sh,Bash,Examples:,,31,2025-08-20,Other
 Starting_Points/python_template.py,Python,"Short, human-readable sentence about what this script does.",usage: python_template.py [-h] -i INPUT [-o OUTPUT],34,2025-08-20,Other
-Visualization_Scripts/bulk_mol_id.sh,Bash,bulk_mol_id.sh — Batch molecule rendering + metadata rename,,112,2025-08-20,Visualization
-Visualization_Scripts/gif_from_mov.sh,Bash,gif_from_mov.sh — Convert .mov to .gif with tunable settings,,61,2025-08-20,Visualization
+Visualization_Scripts/bulk_mol_id.sh,Bash,Environment variables:,,112,2025-08-20,Visualization
+Visualization_Scripts/gif_from_mov.sh,Bash,Options (edit variables at top of file):,,61,2025-08-20,Visualization
 Visualization_Scripts/mol_id.py,Python,"Draw a 2D molecule image from a SMILES, InChI, or InChIKey.",usage: mol_id.py [-h] [-o OUTPUT] [--no-multicolor] [--version] input,347,2025-08-20,Visualization
-Visualization_Scripts/quick_react.py,Python,[--dpi DPI] [--ms MS] [--frame-digits FRAME_DIGITS],"usage: quick_react.py [-h] [--bond-cutoff BOND_CUTOFF] [--size W H]
+Visualization_Scripts/quick_react.py,Python,Create a rocking (forward-then-back) GIF from a multi-frame XYZ trajectory.,"usage: quick_react.py [-h] [--bond-cutoff BOND_CUTOFF] [--size W H]
 [--dpi DPI] [--ms MS] [--frame-digits FRAME_DIGITS]
 [--outdir OUTDIR] [--gif GIF] [--version]
 xyz",161,2025-08-20,Visualization
-update_readme.py,Python,[--include-ext [INCLUDE_EXT ...]],"usage: update_readme.py [-h] [--repo-root REPO_ROOT] [--readme README]
+update_readme.py,Python,Auto-update README tables from repository scripts (help-only).,"usage: update_readme.py [-h] [--repo-root REPO_ROOT] [--readme README]
 [--include-ext [INCLUDE_EXT ...]]
 [--exclude-dirs [EXCLUDE_DIRS ...]]
-[--no-ignore-hidden] [--write] [--write-index]",327,2025-08-20,Other
+[--no-ignore-hidden] [--write] [--write-index]",357,2025-08-20,Other

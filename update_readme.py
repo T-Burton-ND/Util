@@ -145,22 +145,46 @@ def last_modified_iso(p: Path) -> str:
 
 def extract_description_from_help(help_text: str) -> str:
     """
-    Return the first meaningful line from help text
-    (prefer before 'Usage', but fall back to after).
+    Return the first human line *after* the Usage paragraph and before sections
+    like 'Options:'/'Positional arguments:'.
     """
-    lines = [ln.strip("` ").rstrip() for ln in help_text.splitlines() if ln.strip()]
+    # Normalize lines and keep indices
+    lines = help_text.splitlines()
 
-    # 1. first non-empty line that isn’t "usage" or "options"
+    # 1) Drop the entire Usage paragraph (from 'usage' to the first blank line)
+    start = None
+    for i, ln in enumerate(lines):
+        if re.match(r"(?i)^\s*usage\s*:", ln):
+            start = i
+            break
+    if start is not None:
+        # find the next blank line after 'usage:'
+        end = None
+        for j in range(start + 1, len(lines)):
+            if not lines[j].strip():
+                end = j
+                break
+        if end is None:
+            end = len(lines)
+        lines = lines[end:]  # drop usage block
+
+    # 2) Find the first meaningful line
     for ln in lines:
-        if re.match(r"(?i)usage\s*:?", ln):
+        s = ln.strip("` ").rstrip()
+        if not s:
             continue
-        if re.match(r"(?i)options\s*:?", ln):
+        if re.match(r"(?i)^(options?|positional arguments?|optional arguments?)\s*:?\s*$", s):
+            # Hit a section header without finding a description; keep scanning
             continue
-        if ln.startswith("-"):
+        if s.startswith("-"):
+            # flag line, not a description
             continue
-        return ln
+        # Found something human-readable
+        # Keep it concise
+        return s if len(s) <= 200 else (s[:197] + "…")
 
     return "No --help detected"
+
 
 
 def extract_usage_block(help_text: str) -> str:
@@ -246,6 +270,18 @@ def scripts_to_markdown_tables(scripts: List[ScriptInfo]) -> str:
     by_cat: Dict[str, List[ScriptInfo]] = {}
     for s in scripts:
         by_cat.setdefault(s.category, []).append(s)
+
+    def cell(s: str) -> str:
+        if not s:
+            return ""
+        # escape pipes; normalize tabs; convert newlines to <br>
+        s = s.replace("|", "\\|")
+        s = s.replace("\t", " ")
+        s = s.replace("\r\n", "\n").replace("\r", "\n").strip()
+        s = "<br>".join(line.strip() for line in s.split("\n") if line.strip())
+        # keep cells from exploding
+        return s if len(s) <= 800 else (s[:797] + "…")
+
     out = []
     for cat in sorted(by_cat):
         out.append(f"### 🔹 {cat}\n")
@@ -253,13 +289,12 @@ def scripts_to_markdown_tables(scripts: List[ScriptInfo]) -> str:
         out.append("|---|---|---|---|---|---|")
         for s in sorted(by_cat[cat], key=lambda x: x.name.lower()):
             link = f"[`{s.name}`]({s.relpath})"
-            desc = (s.description or "").replace("|", "\\|")
-            usage = (s.usage or "").replace("|", "\\|")
             out.append(
-                f"| {link} | {s.language} | {desc} | {usage} | {s.loc} | {s.modified} |"
+                f"| {link} | {s.language} | {cell(s.description)} | {cell(s.usage)} | {s.loc} | {s.modified} |"
             )
         out.append("")  # blank line between categories
     return "\n".join(out).strip()
+
 
 def replace_block(text: str, begin: str, end: str, replacement: str) -> str:
     if begin not in text or end not in text:
