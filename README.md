@@ -3,12 +3,7 @@
 This repository contains a collection of utility scripts organized into categories for **automation**, **scraping**, and **visualization**. These scripts were developed for research computing, data extraction, and workflow acceleration. The sections below include **auto-generated blocks** that can be refreshed by running `update_readme.py`.
 
 ---
-![Contributions](https://img.shields.io/badge/contributions-welcome-orange.svg)
-
-![Python](https://img.shields.io/badge/language-Python-blue.svg?logo=python)
-
-![Bash](https://img.shields.io/badge/language-Bash-green.svg?logo=gnu-bash)
-
+![Contributions](https://img.shields.io/badge/contributions-welcome-orange.svg) ![Python](https://img.shields.io/badge/language-Python-blue.svg?logo=python) ![Bash](https://img.shields.io/badge/language-Bash-green.svg?logo=gnu-bash)
 
 ## 📂 Repository Structure (high-level)
 ```
