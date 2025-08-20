@@ -32,7 +32,7 @@ util/
 ## 📜 Script Overview
 
 <!-- BEGIN AUTO-OVERVIEW -->
-**Inventory summary** — 10 scripts (Python: 7, Bash: 3) • Other: 3 • Scraping: 3 • Visualization: 4 • Last scan: 2025-08-20 11:50
+**Inventory summary** — 10 scripts (Python: 7, Bash: 3) • Other: 3 • Scraping: 3 • Visualization: 4 • Last scan: 2025-08-20 16:04
 
 <!-- END AUTO-OVERVIEW -->
 
@@ -48,14 +48,19 @@ util/
 | [`bash_template.sh`](Starting_Points/bash_template.sh) | Bash | <file_name>.sh — <one-line summary> |  | 31 | 2025-08-20 |
 | [`python_template.py`](Starting_Points/python_template.py) | Python | Short, human-readable sentence about what this script does. | usage: python_template.py [-h] -i INPUT [-o OUTPUT] | 34 | 2025-08-20 |
 | [`update_readme.py`](update_readme.py) | Python | [--include-ext [INCLUDE_EXT ...]] | usage: update_readme.py [-h] [--repo-root REPO_ROOT] [--readme README]
+[--include-ext [INCLUDE_EXT ...]]
+[--exclude-dirs [EXCLUDE_DIRS ...]]
+[--no-ignore-hidden] [--write] [--write-index] | 327 | 2025-08-20 |
 
 ### 🔹 Scraping
 
 | Script | Lang | Description | Usage | LOC | Modified |
 |---|---|---|---|---|---|
 | [`csv_to_excel.py`](Scraping/csv_to_excel.py) | Python | [--engine {xlsxwriter,openpyxl}] [--version] | usage: combine_csv_to_excel.py [-h] [-o OUTPUT] [-r] [-s {tabs,single}]
+[--engine {xlsxwriter,openpyxl}] [--version]
+directory | 152 | 2025-08-20 |
 | [`pdf_to_table.py`](Scraping/pdf_to_table.py) | Python | Extract numeric-ish tables from PDFs into per-PDF CSVs and a combined CSV. | usage: pdf_to_table.py [-h] -d DIR [--version] | 121 | 2025-08-20 |
-| [`semantic_scraper.py`](Scraping/semantic_scraper.py) | Python | Scrape numeric-leaning tables from OA PDFs via Semantic Scholar. | usage: semantic_scraper.py [-h] [-n NUM] -q QUERY [-o OUTDIR] [--version] | 455 | 2025-08-20 |
+| [`semantic_scraper.py`](Scraping/semantic_scraper.py) | Python | Traceback (most recent call last): |  | 455 | 2025-08-20 |
 
 ### 🔹 Visualization
 
@@ -63,9 +68,8 @@ util/
 |---|---|---|---|---|---|
 | [`bulk_mol_id.sh`](Visualization_Scripts/bulk_mol_id.sh) | Bash | bulk_mol_id.sh — Batch molecule rendering + metadata rename |  | 112 | 2025-08-20 |
 | [`gif_from_mov.sh`](Visualization_Scripts/gif_from_mov.sh) | Bash | gif_from_mov.sh — Convert .mov to .gif with tunable settings |  | 61 | 2025-08-20 |
-| [`mol_id.py`](Visualization_Scripts/mol_id.py) | Python | Draw a 2D molecule image from a SMILES, InChI, or InChIKey. | usage: mol_id.py [-h] [-o OUTPUT] [--no-multicolor] [--version] input | 347 | 2025-08-20 |
-| [`quick_react.py`](Visualization_Scripts/quick_react.py) | Python | [--dpi DPI] [--ms MS] [--frame-digits FRAME_DIGITS] | usage: quick_react.py [-h] [--bond-cutoff BOND_CUTOFF] [--size W H]
-
+| [`mol_id.py`](Visualization_Scripts/mol_id.py) | Python | Traceback (most recent call last): |  | 347 | 2025-08-20 |
+| [`quick_react.py`](Visualization_Scripts/quick_react.py) | Python | Traceback (most recent call last): |  | 161 | 2025-08-20 |
 <!-- END AUTO-SCRIPTS -->
 
 ---

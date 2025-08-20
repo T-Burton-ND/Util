@@ -20,8 +20,8 @@
   {
     "path": "Scraping/semantic_scraper.py",
     "language": "Python",
-    "description": "Scrape numeric-leaning tables from OA PDFs via Semantic Scholar.",
-    "usage": "usage: semantic_scraper.py [-h] [-n NUM] -q QUERY [-o OUTDIR] [--version]",
+    "description": "Traceback (most recent call last):",
+    "usage": "",
     "loc": 455,
     "modified": "2025-08-20",
     "category": "Scraping"
@@ -65,8 +65,8 @@
   {
     "path": "Visualization_Scripts/mol_id.py",
     "language": "Python",
-    "description": "Draw a 2D molecule image from a SMILES, InChI, or InChIKey.",
-    "usage": "usage: mol_id.py [-h] [-o OUTPUT] [--no-multicolor] [--version] input",
+    "description": "Traceback (most recent call last):",
+    "usage": "",
     "loc": 347,
     "modified": "2025-08-20",
     "category": "Visualization"
@@ -74,8 +74,8 @@
   {
     "path": "Visualization_Scripts/quick_react.py",
     "language": "Python",
-    "description": "[--dpi DPI] [--ms MS] [--frame-digits FRAME_DIGITS]",
-    "usage": "usage: quick_react.py [-h] [--bond-cutoff BOND_CUTOFF] [--size W H]\n[--dpi DPI] [--ms MS] [--frame-digits FRAME_DIGITS]\n[--outdir OUTDIR] [--gif GIF] [--version]\nxyz",
+    "description": "Traceback (most recent call last):",
+    "usage": "",
     "loc": 161,
     "modified": "2025-08-20",
     "category": "Visualization"
