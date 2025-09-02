@@ -76,27 +76,87 @@ def sanitize_filename(text: str) -> str:
     """Make safe filename from SMILES/InChI."""
     return re.sub(r'[^a-zA-Z0-9]', '_', text)
 
+from rdkit.Chem.Draw import rdMolDraw2D
+
+def _apply_palette(opts, mol, multicolor: bool):
+    """Try RDKit palette APIs in a version-agnostic way (no halos)."""
+    if not multicolor:
+        # crisp B/W
+        if hasattr(opts, "useBWAtomPalette"):
+            opts.useBWAtomPalette()
+        return
+
+    # Build an element (Z -> color) palette from your ACS_1996_COLORS
+    elem_palette = {}
+    for a in mol.GetAtoms():
+        col = ACS_1996_COLORS.get(a.GetSymbol())
+        if col is not None:
+            elem_palette[a.GetAtomicNum()] = col
+
+    # Try the known RDKit attribute names across versions
+    if hasattr(opts, "colourPalette"):
+        # Newer builds
+        for z, col in elem_palette.items():
+            opts.colourPalette[z] = col
+        return
+    if hasattr(opts, "atomColourPalette"):
+        # Some builds use this name
+        for z, col in elem_palette.items():
+            opts.atomColourPalette[z] = col
+        return
+    if hasattr(opts, "atomColours"):
+        # Older/variant builds (per-atom dict)
+        # Fallback if neither element-palette exists:
+        atom_palette = {a.GetIdx(): elem_palette.get(a.GetAtomicNum(), (0,0,0)) for a in mol.GetAtoms()}
+        try:
+            opts.atomColours = atom_palette
+        except Exception:
+            # If even that fails, just leave defaults (still looks fine)
+            pass
+
 def draw_molecule(smiles: str, output_file: str, multicolor: bool = True):
-    """Draw and save a 2D depiction of a molecule."""
+    """Draw and save a 2D depiction of a molecule (no highlight halos)."""
     mol = Chem.MolFromSmiles(smiles)
     if mol is None:
         raise ValueError(f"Invalid SMILES: {smiles}")
     rdDepictor.Compute2DCoords(mol)
+
     drawer = MolDraw2DCairo(300, 300)
     opts = drawer.drawOptions()
-    opts.setBackgroundColour((1, 1, 1, 0))
 
-    if multicolor:
-        palette = {atom.GetIdx(): ACS_1996_COLORS.get(atom.GetSymbol(), (0, 0, 0)) for atom in mol.GetAtoms()}
-        opts.atomColours = palette
-    else:
-        opts.useBWAtomPalette()
+    # Clean, publication-ish look
+    try:
+        opts.setBackgroundColour((1, 1, 1, 1))
+    except Exception:
+        pass
+    for attr, val in (("bondLineWidth", 2), ("fixedBondLength", 25.0)):
+        if hasattr(opts, attr):
+            try:
+                setattr(opts, attr, val)
+            except Exception:
+                pass
 
-    drawer.DrawMolecule(mol)
+    # Apply palette compatibly (prefers per-element, no halos)
+    _apply_palette(opts, mol, multicolor)
+
+    # Standard draw path (no highlighting)
+    rdMolDraw2D.PrepareAndDrawMolecule(drawer, mol)
     drawer.FinishDrawing()
     with open(output_file, "wb") as f:
         f.write(drawer.GetDrawingText())
     print(f"[✓] Image saved to: {output_file}")
+    
+    if args.show:
+        try:
+            from IPython import get_ipython
+            ip = get_ipython()
+            if ip is not None:
+                from IPython.display import Image as _IPyImage, display as _ipydisplay
+                _ipydisplay(_IPyImage(filename=output_path))
+        except Exception:
+            # Fail silently – keep CLI behavior unchanged
+            pass
+
 
 def resolve_inchikey_to_smiles(inchikey: str) -> tuple[str, int, str] | None:
     """
@@ -359,6 +419,9 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("-o", "--output", help="Output image filename (default: <smiles>_viz.png)")
     p.add_argument("--no-multicolor", action="store_true", help="Disable ACS coloring (use black and white)")
     p.add_argument("--version", action="version", version="%(prog)s " + __version__)
+    p.add_argument("--show", action="store_true",
+               help="If running inside IPython (e.g. via %run), display the image inline")
+
     return p
 
 
