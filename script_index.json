@@ -5,7 +5,7 @@
     "description": "Combine CSV files into an Excel workbook.",
     "usage": "usage: combine_csv_to_excel.py [-h] [-o OUTPUT] [-r] [-s {tabs,single}]\n[--engine {xlsxwriter,openpyxl}] [--version]\ndirectory",
     "loc": 152,
-    "modified": "2025-08-20",
+    "modified": "2025-09-02",
     "category": "Scraping"
   },
   {
@@ -14,16 +14,16 @@
     "description": "Extract numeric-ish tables from PDFs into per-PDF CSVs and a combined CSV.",
     "usage": "usage: pdf_to_table.py [-h] -d DIR [--version]",
     "loc": 121,
-    "modified": "2025-08-20",
+    "modified": "2025-09-02",
     "category": "Scraping"
   },
   {
     "path": "Scraping/semantic_scraper.py",
     "language": "Python",
-    "description": "Scrape numeric-leaning tables from OA PDFs via Semantic Scholar.",
-    "usage": "usage: semantic_scraper.py [-h] [-n NUM] -q QUERY [-o OUTDIR] [--version]",
+    "description": "Traceback (most recent call last):",
+    "usage": "",
     "loc": 455,
-    "modified": "2025-08-20",
+    "modified": "2025-09-02",
     "category": "Scraping"
   },
   {
@@ -32,7 +32,7 @@
     "description": "Examples:",
     "usage": "",
     "loc": 31,
-    "modified": "2025-08-20",
+    "modified": "2025-09-02",
     "category": "Other"
   },
   {
@@ -41,7 +41,7 @@
     "description": "Short, human-readable sentence about what this script does.",
     "usage": "usage: python_template.py [-h] -i INPUT [-o OUTPUT]",
     "loc": 34,
-    "modified": "2025-08-20",
+    "modified": "2025-09-02",
     "category": "Other"
   },
   {
@@ -49,8 +49,8 @@
     "language": "Bash",
     "description": "Environment variables:",
     "usage": "",
-    "loc": 112,
-    "modified": "2025-08-20",
+    "loc": 142,
+    "modified": "2025-09-02",
     "category": "Visualization"
   },
   {
@@ -59,7 +59,7 @@
     "description": "Build and render a cleaned, layered call-graph SVG.",
     "usage": "usage: callgraph.py [-h] [--mode {ast,trace}] [--harness HARNESS]\n[--limit-prefix LIMIT_PREFIX] [--out OUT] [--no-prune]\n[--prune-pattern PRUNE_PATTERN]\n[--layer-colors LAYER_COLORS [LAYER_COLORS ...]]\n[--max-depth MAX_DEPTH]\ncode_path function",
     "loc": 342,
-    "modified": "2025-08-20",
+    "modified": "2025-09-02",
     "category": "Visualization"
   },
   {
@@ -68,34 +68,43 @@
     "description": "Options (edit variables at top of file):",
     "usage": "",
     "loc": 61,
-    "modified": "2025-08-20",
+    "modified": "2025-09-02",
     "category": "Visualization"
   },
   {
     "path": "Visualization_Scripts/harness.py",
     "language": "Python",
-    "description": "No --help detected",
+    "description": "Traceback (most recent call last):",
     "usage": "",
     "loc": 9,
-    "modified": "2025-08-20",
+    "modified": "2025-09-02",
     "category": "Visualization"
   },
   {
     "path": "Visualization_Scripts/mol_id.py",
     "language": "Python",
-    "description": "Draw a 2D molecule image from a SMILES, InChI, or InChIKey.",
-    "usage": "usage: mol_id.py [-h] [-o OUTPUT] [--no-multicolor] [--version] input",
-    "loc": 347,
-    "modified": "2025-08-20",
+    "description": "Traceback (most recent call last):",
+    "usage": "",
+    "loc": 401,
+    "modified": "2025-09-02",
     "category": "Visualization"
   },
   {
     "path": "Visualization_Scripts/quick_react.py",
     "language": "Python",
-    "description": "Create a rocking (forward-then-back) GIF from a multi-frame XYZ trajectory.",
-    "usage": "usage: quick_react.py [-h] [--bond-cutoff BOND_CUTOFF] [--size W H]\n[--dpi DPI] [--ms MS] [--frame-digits FRAME_DIGITS]\n[--outdir OUTDIR] [--gif GIF] [--version]\nxyz",
+    "description": "Traceback (most recent call last):",
+    "usage": "",
     "loc": 161,
-    "modified": "2025-08-20",
+    "modified": "2025-09-02",
+    "category": "Visualization"
+  },
+  {
+    "path": "Visualization_Scripts/run_smiles.sh",
+    "language": "Bash",
+    "description": "head: cannot open 'reaction_list.txt' for reading: No such file or directory",
+    "usage": "",
+    "loc": 18,
+    "modified": "2025-09-02",
     "category": "Visualization"
   },
   {
@@ -104,7 +113,7 @@
     "description": "Auto-update README tables from repository scripts (help-only).",
     "usage": "usage: update_readme.py [-h] [--repo-root REPO_ROOT] [--readme README]\n[--include-ext [INCLUDE_EXT ...]]\n[--exclude-dirs [EXCLUDE_DIRS ...]]\n[--no-ignore-hidden] [--write] [--write-index]",
     "loc": 353,
-    "modified": "2025-08-20",
+    "modified": "2025-09-02",
     "category": "Other"
   }
 ]
