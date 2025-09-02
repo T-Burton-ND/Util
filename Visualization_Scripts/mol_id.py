@@ -126,7 +126,7 @@ def draw_molecule(smiles: str, output_file: str, multicolor: bool = True):
 
     # Clean, publication-ish look
     try:
-        opts.setBackgroundColour((1, 1, 1, 1))
+        opts.setBackgroundColour((1, 1, 1, 0))
     except Exception:
         pass
     for attr, val in (("bondLineWidth", 2), ("fixedBondLength", 25.0)):
