@@ -65,6 +65,7 @@ util/
 ### 🔹 LAMMPS Stand
 
 | Script | Lang | Description | Modified |
+|---|---|---|---|
 | [`batch.sh`](LAMMPS_Stand/batch_automation/batch.sh) | Bash | Main batch script, customizable for replicate number and file locations | 2025-09-09 |
 | ['config.yaml'] (LAMMPS_Stand/batch_automation/batch.sh) | YAML | Setpoints and preferences for LAMMPS runs, handled by batch.sh | 2025-09-09 |
 | [`run_job.sh`](LAMMPS_Stand/batch_automation/gen_scripts/run_job.sh) | Bash | UGE/qsub job script for individual runs, handled by batch.sh | 2025-09-09 |
