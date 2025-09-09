@@ -26,7 +26,7 @@ util/
 - ![Visualization](https://img.shields.io/badge/category-visualization-green)  
   Helpers for **computational chemistry figure generation**, molecular rendering, and quick reaction-path visualizations.  
 
-- ![LAMMPS_Stand]()
+![LAMMPS MD](https://img.shields.io/badge/LAMMPS-MD-lightgrey?style=for-the-badge&logo=opensourceinitiative)
   Pipeline for **LAMMPS runs with OPLS files**, UGE/qsub automation intended, with config.yaml for specifics
 
 👉 For machine-readable metadata, see `script_index.json` or `script_index.csv`.
