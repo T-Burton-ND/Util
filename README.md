@@ -9,7 +9,8 @@ This repository contains a collection of utility scripts organized into categori
 ```
 util/
 ├── Starting_Points/                # templates for .sh and .py files
-├── scraping/                      # Data extraction and processing
+├── Scraping/                      # Data extraction and processing
+├── LAMMPS_Stand/                 # Automation Pipeline for large scale LAMMPS runs with OPLS forcefields
 └── Visualization_Scripts/         # Visualization and chemistry helpers
 ```
 
@@ -25,6 +26,9 @@ util/
 - ![Visualization](https://img.shields.io/badge/category-visualization-green)  
   Helpers for **computational chemistry figure generation**, molecular rendering, and quick reaction-path visualizations.  
 
+- ![LAMMPS_Stand]()
+  Pipeline for **LAMMPS runs with OPLS files**, UGE/qsub automation intended, with config.yaml for specifics
+
 👉 For machine-readable metadata, see `script_index.json` or `script_index.csv`.
 
 ---
@@ -32,7 +36,7 @@ util/
 ## 📜 Script Overview
 
 <!-- BEGIN AUTO-OVERVIEW -->
-**Inventory summary** — 13 scripts (Python: 9, Bash: 4) • Other: 3 • Scraping: 3 • Visualization: 7 • Last scan: 2025-09-02 19:55
+**Inventory summary** — 29 scripts (Python: 17, Bash: 12) • Other: 3 • LAMMPS: 16 • Scraping: 3 • Visualization: 7 • Last scan: 2025-09-09 12:40
 
 <!-- END AUTO-OVERVIEW -->
 
@@ -45,29 +49,50 @@ util/
 
 | Script | Lang | Description | Modified |
 |---|---|---|---|
-| [`bash_template.sh`](Starting_Points/bash_template.sh) | Bash | Examples: | 2025-09-02 |
-| [`python_template.py`](Starting_Points/python_template.py) | Python | Short, human-readable sentence about what this script does. | 2025-09-02 |
-| [`update_readme.py`](update_readme.py) | Python | Auto-update README tables from repository scripts (help-only). | 2025-09-02 |
+| [`bash_template.sh`](Starting_Points/bash_template.sh) | Bash | Examples: | 2025-08-20 |
+| [`python_template.py`](Starting_Points/python_template.py) | Python | Short, human-readable sentence about what this script does. | 2025-08-20 |
+| [`update_readme.py`](update_readme.py) | Python | Auto-update README tables from repository scripts (help-only). | 2025-08-20 |
+
 
 ### 🔹 Scraping
 
 | Script | Lang | Description | Modified |
 |---|---|---|---|
-| [`csv_to_excel.py`](Scraping/csv_to_excel.py) | Python | Combine CSV files into an Excel workbook. | 2025-09-02 |
-| [`pdf_to_table.py`](Scraping/pdf_to_table.py) | Python | Extract numeric-ish tables from PDFs into per-PDF CSVs and a combined CSV. | 2025-09-02 |
-| [`semantic_scraper.py`](Scraping/semantic_scraper.py) | Python | Traceback (most recent call last): | 2025-09-02 |
+| [`csv_to_excel.py`](Scraping/csv_to_excel.py) | Python | Combine CSV files into an Excel workbook. | 2025-08-20 |
+| [`pdf_to_table.py`](Scraping/pdf_to_table.py) | Python | Extract numeric-ish tables from PDFs into per-PDF CSVs and a combined CSV. | 2025-08-20 |
+| [`semantic_scraper.py`](Scraping/semantic_scraper.py) | Python | Scrape numeric-leaning tables from OA PDFs via Semantic Scholar. | 2025-08-20 |
+
+### 🔹 LAMMPS Stand
+
+| Script | Lang | Description | Modified |
+| [`batch.sh`](LAMMPS_Stand/batch_automation/batch.sh) | Bash | Main batch script, customizable for replicate number and file locations | 2025-09-09 |
+| ['config.yaml'] (LAMMPS_Stand/batch_automation/batch.sh) | YAML | Setpoints and preferences for LAMMPS runs, handled by batch.sh | 2025-09-09 |
+| [`run_job.sh`](LAMMPS_Stand/batch_automation/gen_scripts/run_job.sh) | Bash | UGE/qsub job script for individual runs, handled by batch.sh | 2025-09-09 |
+| [`gen_in.py`](LAMMPS_Stand/batch_automation/gen_scripts/gen_in.py) | Python | Source file for lammps input files. Uses config.yaml keys for parameters | 2025-09-09 |
+| [`OPLS_box.py`](LAMMPS_Stand/batch_automation/gen_scripts/OPLS_box.py) | Python | OPLS forcefield -> lammps system file convertor, handled by batch.sh | 2025-09-09 |
+| [`compute_diffusion.py`](LAMMPS_Stand/batch_automation/calc_scripts/compute_diffusion.py) | Python | Homebrewed diffusion calculator using the lammps-generated RDF files | 2025-09-09 |
+| [`compute_diffusion_mdanalysis.py`](LAMMPS_Stand/batch_automation/calc_scripts/compute_diffusion_mdanalysis.py) | Python | 3rd party diffusion calculator using the lammps-generated trajectories | 2025-09-09 |
+| [`data_comp.sh`](LAMMPS_Stand/batch_automation/data_handle/data_comp.sh) | Bash | Compile all diffusion data from the .flag and results.txt files | 2025-09-09 |
+| [`diffusion_job.sh`](LAMMPS_Stand/batch_automation/data_handle/diffusion_job.sh) | Bash | Job script for redoing post-hoc diffusion analysis if needed | 2025-09-09 |
+| [`submit_all_diffusion.sh`](LAMMPS_Stand/batch_automation/data_handle/submit_all_diffusion.sh) | Bash | Batching script for diffusion_job.sh that submits it recursively for completed jobs | 2025-09-09 |
+| [`monitor_runs.py`](LAMMPS_Stand/batch_automation/data_handle/monitor_runs.py) | Python | UGE/qsub engineering monitor reporting run state and exit flags | 2025-09-09 |
+| [`hall_monitor.sh`](LAMMPS_Stand/batch_automation/data_handle/hall_monitor.sh) | Bash | UGE/qsub job script for monitor_runs.py | 2025-09-09 |
+| [`verify_opls_vs_runlist.py`](LAMMPS_Stand/batch_automation/data_handle/verify_opls_vs_runlist.py) | Python | Confirms all OPLS files needed for run_list.csv are available | 2025-09-09 |
+| [`scrape_py.py`](LAMMPS_Stand/ligpargen_automation/scrape_py.py) | Python | SMILES string -> OPLS .lmp file for lammps inputs, using the ligpargen software on chrome browser | 2025-09-09 |
+| [`ligpargen_batch.sh`](LAMMPS_Stand/ligpargen_automation/ligpargen_batch.sh) | Bash | batch run scrape_py.py for OPLS file generation from SMILES strings | 2025-09-09 |
+| [`make_elec.py`](LAMMPS_Stand/ligpargen_automation/make_elec.py) | Python | Tailored .csv -> .xslx file convertor to prep files for scrape_py.py | 2025-09-09 |
 
 ### 🔹 Visualization
 
 | Script | Lang | Description | Modified |
 |---|---|---|---|
 | [`bulk_mol_id.sh`](Visualization_Scripts/bulk_mol_id.sh) | Bash | Environment variables: | 2025-09-02 |
-| [`callgraph.py`](Visualization_Scripts/callgraph.py) | Python | Build and render a cleaned, layered call-graph SVG. | 2025-09-02 |
-| [`gif_from_mov.sh`](Visualization_Scripts/gif_from_mov.sh) | Bash | Options (edit variables at top of file): | 2025-09-02 |
-| [`harness.py`](Visualization_Scripts/harness.py) | Python | Traceback (most recent call last): | 2025-09-02 |
-| [`mol_id.py`](Visualization_Scripts/mol_id.py) | Python | Traceback (most recent call last): | 2025-09-02 |
-| [`quick_react.py`](Visualization_Scripts/quick_react.py) | Python | Traceback (most recent call last): | 2025-09-02 |
-| [`run_smiles.sh`](Visualization_Scripts/run_smiles.sh) | Bash | head: cannot open 'reaction_list.txt' for reading: No such file or directory | 2025-09-02 |
+| [`callgraph.py`](Visualization_Scripts/callgraph.py) | Python | Build and render a cleaned, layered call-graph SVG. | 2025-08-20 |
+| [`gif_from_mov.sh`](Visualization_Scripts/gif_from_mov.sh) | Bash | Options (edit variables at top of file): | 2025-08-20 |
+| [`harness.py`](Visualization_Scripts/harness.py) | Python | No --help detected | 2025-08-20 |
+| [`mol_id.py`](Visualization_Scripts/mol_id.py) | Python | Draw a 2D molecule image from a SMILES, InChI, or InChIKey. | 2025-09-02 |
+| [`quick_react.py`](Visualization_Scripts/quick_react.py) | Python | Create a rocking (forward-then-back) GIF from a multi-frame XYZ trajectory. | 2025-08-20 |
+| [`run_smiles.sh`](Visualization_Scripts/run_smiles.sh) | Bash | head: reaction_list.txt: No such file or directory | 2025-09-02 |
 <!-- END AUTO-SCRIPTS -->
 
 ---
