@@ -44,15 +44,12 @@ util/
 
 ## 🔧 Detailed Inventory
 
-<!-- BEGIN AUTO-SCRIPTS -->
 ### 🔹 Other
 
 | Script | Lang | Description | Modified |
 |---|---|---|---|
 | [`bash_template.sh`](Starting_Points/bash_template.sh) | Bash | Examples: | 2025-08-20 |
 | [`python_template.py`](Starting_Points/python_template.py) | Python | Short, human-readable sentence about what this script does. | 2025-08-20 |
-| [`update_readme.py`](update_readme.py) | Python | Auto-update README tables from repository scripts (help-only). | 2025-08-20 |
-
 
 ### 🔹 Scraping
 
@@ -62,12 +59,24 @@ util/
 | [`pdf_to_table.py`](Scraping/pdf_to_table.py) | Python | Extract numeric-ish tables from PDFs into per-PDF CSVs and a combined CSV. | 2025-08-20 |
 | [`semantic_scraper.py`](Scraping/semantic_scraper.py) | Python | Scrape numeric-leaning tables from OA PDFs via Semantic Scholar. | 2025-08-20 |
 
+### 🔹 Visualization
+
+| Script | Lang | Description | Modified |
+|---|---|---|---|
+| [`bulk_mol_id.sh`](Visualization_Scripts/bulk_mol_id.sh) | Bash | Environment variables: | 2025-09-02 |
+| [`callgraph.py`](Visualization_Scripts/callgraph.py) | Python | Build and render a cleaned, layered call-graph SVG. | 2025-08-20 |
+| [`gif_from_mov.sh`](Visualization_Scripts/gif_from_mov.sh) | Bash | Options (edit variables at top of file): | 2025-08-20 |
+| [`harness.py`](Visualization_Scripts/harness.py) | Python | No --help detected | 2025-08-20 |
+| [`mol_id.py`](Visualization_Scripts/mol_id.py) | Python | Draw a 2D molecule image from a SMILES, InChI, or InChIKey. | 2025-09-02 |
+| [`quick_react.py`](Visualization_Scripts/quick_react.py) | Python | Create a rocking (forward-then-back) GIF from a multi-frame XYZ trajectory. | 2025-08-20 |
+| [`run_smiles.sh`](Visualization_Scripts/run_smiles.sh) | Bash | head: reaction_list.txt: No such file or directory | 2025-09-02 |
+
 ### 🔹 LAMMPS Stand
 
 | Script | Lang | Description | Modified |
 |---|---|---|---|
 | [`batch.sh`](LAMMPS_Stand/batch_automation/batch.sh) | Bash | Main batch script, customizable for replicate number and file locations | 2025-09-09 |
-| ['config.yaml'] (LAMMPS_Stand/batch_automation/batch.sh) | YAML | Setpoints and preferences for LAMMPS runs, handled by batch.sh | 2025-09-09 |
+| config.yaml | YAML | Setpoints and preferences for LAMMPS runs, handled by batch.sh | 2025-09-09 |
 | [`run_job.sh`](LAMMPS_Stand/batch_automation/gen_scripts/run_job.sh) | Bash | UGE/qsub job script for individual runs, handled by batch.sh | 2025-09-09 |
 | [`gen_in.py`](LAMMPS_Stand/batch_automation/gen_scripts/gen_in.py) | Python | Source file for lammps input files. Uses config.yaml keys for parameters | 2025-09-09 |
 | [`OPLS_box.py`](LAMMPS_Stand/batch_automation/gen_scripts/OPLS_box.py) | Python | OPLS forcefield -> lammps system file convertor, handled by batch.sh | 2025-09-09 |
@@ -82,19 +91,6 @@ util/
 | [`scrape_py.py`](LAMMPS_Stand/ligpargen_automation/scrape_py.py) | Python | SMILES string -> OPLS .lmp file for lammps inputs, using the ligpargen software on chrome browser | 2025-09-09 |
 | [`ligpargen_batch.sh`](LAMMPS_Stand/ligpargen_automation/ligpargen_batch.sh) | Bash | batch run scrape_py.py for OPLS file generation from SMILES strings | 2025-09-09 |
 | [`make_elec.py`](LAMMPS_Stand/ligpargen_automation/make_elec.py) | Python | Tailored .csv -> .xslx file convertor to prep files for scrape_py.py | 2025-09-09 |
-
-### 🔹 Visualization
-
-| Script | Lang | Description | Modified |
-|---|---|---|---|
-| [`bulk_mol_id.sh`](Visualization_Scripts/bulk_mol_id.sh) | Bash | Environment variables: | 2025-09-02 |
-| [`callgraph.py`](Visualization_Scripts/callgraph.py) | Python | Build and render a cleaned, layered call-graph SVG. | 2025-08-20 |
-| [`gif_from_mov.sh`](Visualization_Scripts/gif_from_mov.sh) | Bash | Options (edit variables at top of file): | 2025-08-20 |
-| [`harness.py`](Visualization_Scripts/harness.py) | Python | No --help detected | 2025-08-20 |
-| [`mol_id.py`](Visualization_Scripts/mol_id.py) | Python | Draw a 2D molecule image from a SMILES, InChI, or InChIKey. | 2025-09-02 |
-| [`quick_react.py`](Visualization_Scripts/quick_react.py) | Python | Create a rocking (forward-then-back) GIF from a multi-frame XYZ trajectory. | 2025-08-20 |
-| [`run_smiles.sh`](Visualization_Scripts/run_smiles.sh) | Bash | head: reaction_list.txt: No such file or directory | 2025-09-02 |
-<!-- END AUTO-SCRIPTS -->
 
 ---
 
