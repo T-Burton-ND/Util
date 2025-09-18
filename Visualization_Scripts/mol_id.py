@@ -121,7 +121,7 @@ def draw_molecule(smiles: str, output_file: str, multicolor: bool = True):
         raise ValueError(f"Invalid SMILES: {smiles}")
     rdDepictor.Compute2DCoords(mol)
 
-    drawer = MolDraw2DCairo(300, 300)
+    drawer = MolDraw2DCairo(-1, -1)  # auto-size
     opts = drawer.drawOptions()
 
     # Clean, publication-ish look
