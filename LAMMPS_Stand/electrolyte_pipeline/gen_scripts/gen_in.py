@@ -184,7 +184,7 @@ replicate {replicate} {replicate} {replicate} bond/periodic
 
 group all_atoms type > 0
 group cl type 1
-group li type 2
+group li type 3
 
 neighbor        {neighbor_bin} bin
 neigh_modify    {neigh_modify}
@@ -228,6 +228,7 @@ minimize {min_etol} {min_ftol} {min_maxiter} {min_maxeval}
 kspace_style {kspace_style}
 pair_style   {pair_style}
 include  {settings_name}
+timer full
 
 #===========================================================
 # Thawing Phase (NVT Ramp to Relieve Pressure)

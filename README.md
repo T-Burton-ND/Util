@@ -51,7 +51,7 @@ util/
 | [`bash_template.sh`](Starting_Points/bash_template.sh) | Bash | Examples: | 2025-08-20 |
 | [`python_template.py`](Starting_Points/python_template.py) | Python | Short, human-readable sentence about what this script does. | 2025-08-20 |
 
-### 🔹 Scraping
+### 🔹 Scraping Scripts
 
 | Script | Lang | Description | Modified |
 |---|---|---|---|
@@ -59,7 +59,7 @@ util/
 | [`pdf_to_table.py`](Scraping/pdf_to_table.py) | Python | Extract numeric-ish tables from PDFs into per-PDF CSVs and a combined CSV. | 2025-08-20 |
 | [`semantic_scraper.py`](Scraping/semantic_scraper.py) | Python | Scrape numeric-leaning tables from OA PDFs via Semantic Scholar. | 2025-08-20 |
 
-### 🔹 Visualization
+### 🔹 Graphical Gimmies
 
 | Script | Lang | Description | Modified |
 |---|---|---|---|

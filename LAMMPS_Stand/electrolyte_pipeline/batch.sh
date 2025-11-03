@@ -18,9 +18,10 @@ CSV_FILE="run_list.csv"
 LAMMPS_JOB_TEMPLATE="run_job.sh"
 
 # --------- Replicate settings (override with env vars) ---------
-REPL_FACTORS=(${REPL_FACTORS:-2})   # e.g., REPL_FACTORS="2 4 5" ./batch.sh
+REPL_FACTORS=(${REPL_FACTORS:-1 1 1})   # e.g., REPL_FACTORS="2 4 5" ./batch.sh
+ION_COUNT=40                     # each ion gets this many molecules
 BASE_SEED="${BASE_SEED:-4928459}"       # per-replicate seed = BASE_SEED + index
-TOTAL_ELEC="${TOTAL_ELEC:-50}"          # electrolytes (excluding ions) sum to this
+TOTAL_ELEC="${TOTAL_ELEC:-200}"          # electrolytes (excluding ions) sum to this
 
 # --------- Tiny YAML edit helper (no yq needed) ---------
 yaml_set_key () {
@@ -49,14 +50,13 @@ trim() { awk '{$1=$1;print}'; }
 echo
 echo "Starting batch processing from $CSV_FILE..."
 echo "RunID,RepFactor,RepIndex,Seed,Molecules,MoleculeCounts,SubmissionTime" > run_summary.csv.tmp
-cp "$CSV_FILE" exec_list.csv.tmp
 echo >> "$CSV_FILE"   # ensure trailing newline
 
 # ---------- Start Hall Monitor -------
-#echo 
-#echo "Starting Hall Monitor"
-#qsub -v MON_ROOT_DIR="$PWD/$RUN_ROOT" ./data_handle/hall_monitor.sh
-#echo 
+echo 
+echo "Starting Hall Monitor"
+qsub -v MON_ROOT_DIR="$PWD/$RUN_ROOT" ./data_handle/hall_monitor.sh
+echo 
 
 # --------- Process each row ---------
 tail -n +2 "$CSV_FILE" | while IFS=',' read -r RUN_ID rest_of_line; do
@@ -106,7 +106,7 @@ tail -n +2 "$CSV_FILE" | while IFS=',' read -r RUN_ID rest_of_line; do
     fi
 
     # ions = first two
-    MOLECULE_COUNTS="1 1"
+    MOLECULE_COUNTS="$ION_COUNT $ION_COUNT"
 
     # electrolytes = names[2:]
     ELEC_COUNT=$(( MOLECULE_COUNT - 2 ))
@@ -213,10 +213,6 @@ echo "Total jobs submitted successfully: $SUCCESS_COUNT"
 echo
 
 END_TIME=$(date '+%Y-%m-%d %H:%M:%S')
-
-# restore CSV if you like the original behavior
-rm run_list.csv
-mv exec_list.csv.tmp run_list.csv
 
 mkdir -p summaries
 mv run_summary.csv.tmp "summaries/$(date '+%Y-%m-%d_%H-%M-%S')_run_summary.csv"

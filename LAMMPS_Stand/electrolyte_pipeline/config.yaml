@@ -34,7 +34,7 @@ neighbor_bin_npt: 2.0
 
 
 # --------- Simulation Size ---------
-rescale: 0.35                      # Scaling factor for initial box size adjustment
+rescale: 0.5                      # Scaling factor for initial box size adjustment
 replicate: 3                      # Number of times to replicate the system in each dimension
 
 # --------- Thermo Output and Dump Frequencies ---------
@@ -82,7 +82,7 @@ press0_equil: 50.0                # Starting pressure for NPT equilibration (atm
 pressf_equil: 1.0               # Final target pressure for NPT equilibration (atm)
 temp0_equil: 300.0              # Starting temperature for NPT equilibration (K)
 tempf_equil: 300.0               # Final target temperature for NPT equilibration (K)
-nSteps_equil: 2500000            # Steps for NPT equilibration
+nSteps_equil: 1000000            # Steps for NPT equilibration
 equil_timestep: 0.25              # Timestep (fs) for NPT equilibration
 equil_tdamp_steps: 200         #  Tdamp ≈ 200 time steps
 equil_pdamp_steps: 6000         #  Pdamp ≈ 2000 time steps

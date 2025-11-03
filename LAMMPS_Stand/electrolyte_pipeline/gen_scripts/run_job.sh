@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # --- UGE Settings ---
-#$ -pe smp 24
+#$ -pe smp 32
 #$ -cwd
 #$ -V
 #$ -j y
@@ -24,7 +24,9 @@ module load python
 RUN_NAME="$1"
 
 # --- Run LAMMPS ---
-: "${NSLOTS:=1}"
+: "${NSLOTS:?NSLOTS not set by UGE}"     # fail fast if something is off
+export OMP_NUM_THREADS=1                 # pure-MPI: 1 thread per rank
+
 echo "Starting LAMMPS run for $RUN_NAME"
 mpirun -np $NSLOTS lmp_mpi -in run.in -log log.lammps
 echo "LAMMPS run completed for $RUN_NAME"

@@ -5,7 +5,7 @@
 #$ -V
 #$ -j y
 #$ -pe smp 1
-#$ -l h_rt=72:00:00
+#$ -l h_rt=240:00:00
 #$ -M tburton2@nd.edu
 #$ -m e   # email at job end (success OR fail). Use -m ae if you also want "at start".
 
@@ -22,7 +22,7 @@ export MON_CSV_PATH="${MON_CSV_PATH:-run_states.csv}"
 export MON_INTERVAL_MIN="${MON_INTERVAL_MIN:-5}"
 export MON_STOP_WHEN_ALL_DONE="${MON_STOP_WHEN_ALL_DONE:-1}"
 export MON_MAX_HOURS="${MON_MAX_HOURS:-240}"
-export MON_INITIAL_DELAY_MIN="${MON_INITIAL_DELAY_MIN:-1}"
+export MON_INITIAL_DELAY_MIN="${MON_INITIAL_DELAY_MIN:-0}"
 export MON_LOG_GLOBS="${MON_LOG_GLOBS:-job_output_*.txt,*.out,log.lammps,*.log}"
 export MON_STATE_PATH="${MON_STATE_PATH:-./data_handle/.monitor_state.json}"
 
