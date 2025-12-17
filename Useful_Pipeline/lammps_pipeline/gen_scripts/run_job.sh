@@ -18,7 +18,6 @@ conda activate base
 module load intel
 module load intelmpi
 module load lammps
-module load python 
 
 # --- Get Run Name ---
 RUN_NAME="$1"
@@ -36,12 +35,6 @@ END_TIME=$(date +%s)
 END_STRING=$(date '+%Y-%m-%d %H:%M:%S')
 ELAPSED=$((END_TIME - START_TIME))
 
-
-# --- Track end time ---
-END_TIME=$(date +%s)
-END_STRING=$(date '+%Y-%m-%d %H:%M:%S')
-ELAPSED=$((END_TIME - START_TIME))
-
 # --- Write flag + D result ---
 {
   echo "Job started at: $START_STRING"
@@ -51,9 +44,4 @@ ELAPSED=$((END_TIME - START_TIME))
   echo "UGE Job ID: $JOB_ID"
   echo "Run Name: $RUN_NAME"
   echo
-  echo "=== Self-diffusion (msd_li/msd_cl) ==="
-  echo "$DIFFUSION_OUTPUT"
-  echo
-  echo "=== MDAnalysis diffusion ==="
-  echo "$MD_DIFF_OUTPUTS"
 } > run_finished.flag
