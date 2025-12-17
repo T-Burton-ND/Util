@@ -36,33 +36,6 @@ END_TIME=$(date +%s)
 END_STRING=$(date '+%Y-%m-%d %H:%M:%S')
 ELAPSED=$((END_TIME - START_TIME))
 
-# --- Compute Diffusion Coefficient (your script) ---
-echo "Running diffusion coefficient analysis..."
-DIFFUSION_OUTPUT=$(python /temp180/bsavoie2/tburton2/Electrolytes/automated/calc_scripts/compute_diffusion.py msd_li.txt msd_cl.txt --outdir self_diff_out)
-echo "$DIFFUSION_OUTPUT" | tee diffusion_results.txt
-
-# ---- Analysis: MDAnalysis ----
-# Prefer gzip’d trajectory if present
-TRAJ="production.lammpstrj"
-if [[ -f "${TRAJ}.gz" ]]; then
-  TRAJ="${TRAJ}.gz"
-fi
-
-echo
-echo "Using MDAnalysis to calculate diffusion coefficients on ${TRAJ} ..."
-MD_DIFF_OUTPUTS=$(
-  python /temp180/bsavoie2/tburton2/Electrolytes/automated/calc_scripts/compute_diffusion_mdanalysis.py \
-    "${TRAJ}" \
-    --dt-fs 0.5 --out MD_Analysis_out --fit-start-step 5000000 --fit-end-step 20000000 \
-    | tee -a diffusion_results.txt
-)
-
-
-# --- Compute Viscosity (if applicable) ---
-# Uncomment and modify the following lines if viscosity calculation is needed
-# echo "Running viscosity analysis..."
-# VISCOSITY_OUTPUT=$(python ../gen_scripts/compute_viscosity.py)
-# echo "$VISCOSITY_OUTPUT" | tee viscosity_results.txt
 
 # --- Track end time ---
 END_TIME=$(date +%s)
@@ -84,9 +57,3 @@ ELAPSED=$((END_TIME - START_TIME))
   echo "=== MDAnalysis diffusion ==="
   echo "$MD_DIFF_OUTPUTS"
 } > run_finished.flag
-
-# --- Gzip the output files ---
-gzip log.lammps
-gzip msd_*.txt
-gzip *.data
-gzip *.lammpstrj

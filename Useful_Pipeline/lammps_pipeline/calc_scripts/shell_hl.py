@@ -7,26 +7,26 @@ from collections import defaultdict
 # ----------------------------
 run = "1_1"       # base name of files
 r_cut = 3.0         # cutoff radius (Å)
-li_type = 2         # atom type for Li
+li_type = 1         # atom type for Li
 dt = 5000           # timestep between frames
 smooth_window = 3   # require change to persist ≥ this many frames before accepting it
 # ----------------------------
 
 # --- Load trajectory ---
-print(f"Loading trajectory: equilibrated.data / production.lammpstrj")
+#print(f"Loading trajectory: equilibrated.data / production.lammpstrj")
 u = mda.Universe(f"equilibrated.data", f"production.lammpstrj",
                  topology_format="DATA", format="LAMMPSDUMP", dt=dt)
 
 # --- Define atom selections ---
 li_atoms = u.select_atoms(f"type {li_type}")
 neighbors = u.select_atoms(f"not type {li_type}")
-print(f"Found {len(li_atoms)} Li atoms and {len(neighbors)} neighbor atoms")
+#print(f"Found {len(li_atoms)} Li atoms and {len(neighbors)} neighbor atoms")
 
 # --- Storage ---
 shell_persistence = defaultdict(list)  # li_id -> list of (set_of_neighbor_ids, duration_in_frames)
 
 # --- Iterate over Li atoms individually ---
-print("Analyzing solvation shell persistence with smoothing...")
+#print("Analyzing solvation shell persistence with smoothing...")
 for li in li_atoms:
     prev_shell = None
     count = 0
@@ -77,12 +77,14 @@ for li, shells in shell_persistence.items():
     lifetimes = [dur for _, dur in shells]
     all_lifetimes.extend(lifetimes)
 
-print("\n---------------- Results ----------------")
+#print("\n---------------- Results ----------------")
 if all_lifetimes:
     mean_lifetime = np.mean(all_lifetimes)
     std_lifetime = np.std(all_lifetimes)
     total_shells = len(all_lifetimes)
-    print(f"Global mean solvation-shell lifetime : {mean_lifetime:.2f} frames ± {std_lifetime:.2f}")
+    print(f"Mean Lifetime:{mean_lifetime:.6f}")
+    print(f"Std: {std_lifetime:.6f}")
+    #print(f"Global mean solvation-shell lifetime : {mean_lifetime:.2f} frames ± {std_lifetime:.2f}")
     #print(f"Total number of shell events          : {total_shells}")
     #print(f"Average per Li                        : {total_shells / len(li_atoms):.1f} events/Li\n")
 

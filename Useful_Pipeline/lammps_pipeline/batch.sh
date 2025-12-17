@@ -18,10 +18,19 @@ CSV_FILE="run_list.csv"
 LAMMPS_JOB_TEMPLATE="run_job.sh"
 
 # --------- Replicate settings (override with env vars) ---------
-REPL_FACTORS=(${REPL_FACTORS:-1 1 1})   # e.g., REPL_FACTORS="2 4 5" ./batch.sh
-ION_COUNT=40                     # each ion gets this many molecules
+REPL_FACTORS=(${REPL_FACTORS:-2 2 2})   # e.g., REPL_FACTORS="2 4 5" ./batch.sh
+ION_COUNT=${ION_COUNT:-1}              # each ion species gets this many molecules
 BASE_SEED="${BASE_SEED:-4928459}"       # per-replicate seed = BASE_SEED + index
-TOTAL_ELEC="${TOTAL_ELEC:-200}"          # electrolytes (excluding ions) sum to this
+TOTAL_ELEC="${TOTAL_ELEC:-40}"         # electrolytes (excluding ions) sum to this
+
+# NEW: how many ion species are in the CSV row, from the left
+# 1 => CSV is: run_id, cation, electrolyte_1, electrolyte_2, ...
+# 2 => CSV is: run_id, cation, anion, electrolyte_1, electrolyte_2, ...
+ION_SPECIES="${ION_SPECIES:-2}"
+if ! [[ "$ION_SPECIES" =~ ^[12]$ ]]; then
+  echo "ERROR: ION_SPECIES must be 1 or 2 (got '$ION_SPECIES')."
+  exit 1
+fi
 
 # --------- Tiny YAML edit helper (no yq needed) ---------
 yaml_set_key () {
@@ -55,14 +64,14 @@ echo >> "$CSV_FILE"   # ensure trailing newline
 # ---------- Start Hall Monitor -------
 echo 
 echo "Starting Hall Monitor"
-qsub -v MON_ROOT_DIR="$PWD/$RUN_ROOT" ./data_handle/hall_monitor.sh
+qsub -v MON_ROOT_DIR="$PWD/$RUN_ROOT" ./data_handle/hall_monitor.sh || true
 echo 
 
 # --------- Process each row ---------
 tail -n +2 "$CSV_FILE" | while IFS=',' read -r RUN_ID rest_of_line; do
     RUN_ID="$(echo "$RUN_ID" | tr -d '\r' | trim)"
 
-    # Collect molecule names (order matters: first two are ions)
+    # Collect molecule names (order matters)
     IFS=',' read -ra RAW_FILE_NAMES <<< "$rest_of_line"
     MOLECULE_NAMES=()
     for name in "${RAW_FILE_NAMES[@]}"; do
@@ -74,13 +83,32 @@ tail -n +2 "$CSV_FILE" | while IFS=',' read -r RUN_ID rest_of_line; do
     if [ ${#MOLECULE_NAMES[@]} -eq 0 ]; then
         echo
         echo " ----------------------------------------"
+        echo "Run $RUN_ID has no molecules listed. Skipping."
+        echo " ----------------------------------------"
         continue
     fi
+
+    # Validate presence of at least one ion species + one electrolyte
+    if (( ${#MOLECULE_NAMES[@]} < ION_SPECIES + 1 )); then
+        echo
+        echo "----------------------------------------"
+        echo "Run $RUN_ID — not enough molecules for requested ION_SPECIES=$ION_SPECIES"
+        echo "Need at least: 1 run_id + $ION_SPECIES ion(s) + 1 electrolyte."
+        echo "Skipping."
+        echo "----------------------------------------"
+        continue
+    fi
+
+    # Partition into ions vs electrolytes
+    ION_NAMES=("${MOLECULE_NAMES[@]:0:ION_SPECIES}")
+    ELEC_NAMES=("${MOLECULE_NAMES[@]:ION_SPECIES}")
 
     echo
     echo "----------------------------------------"
     echo "Run $RUN_ID"
-    echo "Molecule Names: ${MOLECULE_NAMES[*]}"
+    echo "ION_SPECIES: $ION_SPECIES"
+    echo "Ions: ${ION_NAMES[*]}"
+    echo "Electrolytes: ${ELEC_NAMES[*]}"
     echo "Replicate factors: ${REPL_FACTORS[*]}"
     echo "----------------------------------------"
     echo
@@ -91,25 +119,28 @@ tail -n +2 "$CSV_FILE" | while IFS=',' read -r RUN_ID rest_of_line; do
     LMP_FILES_TO_PASS=""
     for mol in "${MOLECULE_NAMES[@]}"; do
         lmp_file="${mol}.lmp"
-        cp "$OPLS_DIR/$lmp_file" .         # keep .lmp extension; OPLS_box.py requires it
+        if [ ! -f "$OPLS_DIR/$lmp_file" ]; then
+            echo "ERROR: Missing OPLS file: $OPLS_DIR/$lmp_file"
+            echo "Skipping run $RUN_ID."
+            rm -f *.lmp || true
+            cd ..
+            continue 2
+        fi
+        cp "$OPLS_DIR/$lmp_file" .         # keep .lmp extension; OPLS_box.py expects it
         LMP_FILES_TO_PASS+="$lmp_file "
     done
     LMP_FILES_TO_PASS="$(echo "$LMP_FILES_TO_PASS" | xargs)"  # trim trailing space
 
-    # --------- Step 2: Compute Molecule Counts (ions 1/1, electrolytes even to 50) ---------
-    MOLECULE_COUNT=${#MOLECULE_NAMES[@]}
-    if (( MOLECULE_COUNT < 2 )); then
-        echo "Run $RUN_ID needs at least two molecules (two ions). Skipping."
-        rm -f *.lmp
-        cd ..
-        continue
-    fi
+    # --------- Step 2: Compute Molecule Counts (ion(s) fixed, electrolytes distributed) ---------
+    MOLECULE_COUNTS=""
 
-    # ions = first two
-    MOLECULE_COUNTS="$ION_COUNT $ION_COUNT"
+    # Ion species counts
+    for _ in "${ION_NAMES[@]}"; do
+        MOLECULE_COUNTS+="$ION_COUNT "
+    done
 
-    # electrolytes = names[2:]
-    ELEC_COUNT=$(( MOLECULE_COUNT - 2 ))
+    # Electrolyte distribution
+    ELEC_COUNT=${#ELEC_NAMES[@]}
     if (( ELEC_COUNT > 0 )); then
         total_elec="$TOTAL_ELEC"
         if (( total_elec < ELEC_COUNT )); then
@@ -119,16 +150,18 @@ tail -n +2 "$CSV_FILE" | while IFS=',' read -r RUN_ID rest_of_line; do
         base=$(( total_elec / ELEC_COUNT ))
         rem=$(( total_elec % ELEC_COUNT ))
 
-        # Distribute remainder fairly (no rotation needed unless you want to)
         for i in $(seq 1 "$ELEC_COUNT"); do
             c="$base"
             if (( i <= rem )); then c=$((c+1)); fi
-            MOLECULE_COUNTS+=" $c"
+            MOLECULE_COUNTS+="$c "
         done
     fi
 
+    MOLECULE_COUNTS="$(echo "$MOLECULE_COUNTS" | xargs)"  # trim
+
     echo "Final Molecule Counts: $MOLECULE_COUNTS"
     echo 
+
     # --------- Step 3: Run OPLS_box.py ONCE ---------
     OUTPUT_DATA="system.data"
     BOX_SIZE=50
@@ -155,7 +188,6 @@ tail -n +2 "$CSV_FILE" | while IFS=',' read -r RUN_ID rest_of_line; do
     rep_idx=0
     declare -A RF_COUNT=()
     
-
     for rf in "${REPL_FACTORS[@]}"; do
         rep_idx=$((rep_idx + 1))
         vseed=$((BASE_SEED + rep_idx))
@@ -190,7 +222,7 @@ tail -n +2 "$CSV_FILE" | while IFS=',' read -r RUN_ID rest_of_line; do
         (
           cd "$RUN_DIR"
           qsub -N "run_${RUN_ID}_x${rf}_r${rord}" "$LAMMPS_JOB_TEMPLATE" "$RUN_ID"  
-  )
+        )
         # Log submission
         TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
         MOLECULE_LIST=$(IFS=';'; echo "${MOLECULE_NAMES[*]}")

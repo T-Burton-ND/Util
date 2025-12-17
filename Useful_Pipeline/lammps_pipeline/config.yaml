@@ -35,7 +35,7 @@ neighbor_bin_npt: 2.0
 
 # --------- Simulation Size ---------
 rescale: 0.5                      # Scaling factor for initial box size adjustment
-replicate: 3                      # Number of times to replicate the system in each dimension
+replicate: 2                      # Number of times to replicate the system in each dimension
 
 # --------- Thermo Output and Dump Frequencies ---------
 thermo_freq: 5000                   # Frequency (steps) to output thermo data to log file
@@ -60,7 +60,7 @@ rdf_type_1: 2                      # Type ID for first species in RDF calculatio
 rdf_type_2: 3                      # Type ID for second species in RDF calculation
 
 # --------- Relaxation Parameters ---------
-nSteps_relax: 25000                 # Steps for initial unoverlap (nve/limit) and minimization
+nSteps_relax: 100000                 # Steps for initial unoverlap (nve/limit) and minimization
 relax_timestep: 0.25              # Timestep (fs) for the relaxation phase
 
 # --------- Energy Minimization Parameters ---------
@@ -73,28 +73,30 @@ min_maxeval: 50000     # Max force evaluations
 # --------- Thawing Parameters ---------
 thawing_steps: 250000       # Number of steps for NVT thawing
 thawing_tstart: 10.0       # Starting temperature (K)
-thawing_tstop: 300.0       # Final temperature (K)
+thawing_tstop: 100.0       # Final temperature (K)
 thawing_tdamp: 100.0       # Damping parameter (fs)
 thawing_tdamp_steps: 400
 
 # --------- Equilibration Parameters ---------
 press0_equil: 50.0                # Starting pressure for NPT equilibration (atm)
 pressf_equil: 1.0               # Final target pressure for NPT equilibration (atm)
-temp0_equil: 300.0              # Starting temperature for NPT equilibration (K)
-tempf_equil: 300.0               # Final target temperature for NPT equilibration (K)
-nSteps_equil: 1000000            # Steps for NPT equilibration
+temp0_equil: 100.0              # Starting temperature for NPT equilibration (K)
+tempf_equil: 100.0               # Final target temperature for NPT equilibration (K)
+nSteps_equil: 2000000            # Steps for NPT equilibration
 equil_timestep: 0.25              # Timestep (fs) for NPT equilibration
 equil_tdamp_steps: 200         #  Tdamp ≈ 200 time steps
 equil_pdamp_steps: 6000         #  Pdamp ≈ 2000 time steps
 barostat_drag: 2.0              #  extra damping to prevent oscillations
 
 # ---------Production Parameters ---------
-prod_timestep: 0.5               # Timestep (fs) for the production NVE diffusion run
-nSteps_prod: 10000000        # Steps for production NVE diffusion run
-linear_momentum: 10000  # Linear momentum removal frequency (steps)
-production_neighbor_bin: 3.0 
-# 1,000,000 steps @ 0.5 = 500 ps
-# Recommended production (25 ns) = 50,000,000 steps @ 0.5 fs
+prod_timestep: 0.5
+nSteps_prod: 10000000
+production_temp_start: 100.0      # starting temperature (K)
+production_temp_end: 100.0       # target temperature (K)
+production_tau: 100.0             # NVT damping parameter (fs)
+linear_momentum: 10000
+production_neighbor_bin: 3.0
+
 
 # ===============================
 # End of Configuration File

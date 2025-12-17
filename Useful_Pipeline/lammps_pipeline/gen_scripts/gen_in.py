@@ -97,6 +97,9 @@ prod_timestep = config['prod_timestep']
 linear_momentum = config['linear_momentum']
 production_neighbor_bin = config['production_neighbor_bin']
 
+production_temp_start = config['production_temp_start']
+production_temp_end = config['production_temp_end']
+production_tau = config['production_tau']
 
 
 # ============================
@@ -183,8 +186,6 @@ change_box all x scale {rescale} y scale {rescale} z scale {rescale} remap
 replicate {replicate} {replicate} {replicate} bond/periodic
 
 group all_atoms type > 0
-group cl type 1
-group li type 3
 
 neighbor        {neighbor_bin} bin
 neigh_modify    {neigh_modify}
@@ -276,20 +277,8 @@ unfix npt_equil
 write_data equilibrated.data
 
 #===========================================================
-# Production (NVE)
+# Production (NVT)
 #===========================================================
-
-
-# --------- MSD Output for Types 1 and 2 ---------
-compute msd_cl cl msd
-fix msd_tot_cl  cl ave/time {msd_freq} {msd_ave} {msd_tot} c_msd_cl[4] file msd_cl.txt mode scalar
-
-compute msd_li li msd
-fix msd_tot_li  li ave/time {msd_freq} {msd_ave} {msd_tot} c_msd_li[4] file msd_li.txt mode scalar
-
-# --------- RDF Output ---------
-compute         rdf all rdf {rdf_bins} {rdf_type_1} {rdf_type_2}
-fix             rdf_out all ave/time {rdf_freq} {rdf_ave} {rdf_tot} c_rdf[*] file rdf_{rdf_type_1}_{rdf_type_2}.txt.gz mode vector
 
 # Trajectory dump (unwrapped)
 dump production all custom {coords_freq} production.lammpstrj id mol type xu yu zu
@@ -302,8 +291,10 @@ thermo_modify format float %10.3f
 thermo 1000
 
 # --------- Production Fix and Momentum Removal ---------
-fix nve all nve
+
+fix nvt_prod all nvt temp {production_temp_start} {production_temp_end} {production_tau}
 fix remove_momentum all momentum {linear_momentum} linear 1 1 1
+
 
 
 # --------- Production Neighbor Update
@@ -324,13 +315,11 @@ run {nSteps_prod}
 # Post-Processing
 #===========================================================
 
-unfix nve
+unfix nvt_prod
 unfix remove_momentum
 undump production
-unfix rdf_out
-unfix msd_tot_cl
-unfix msd_tot_li
 write_data postprod.data
+
 """
 
 # ============================

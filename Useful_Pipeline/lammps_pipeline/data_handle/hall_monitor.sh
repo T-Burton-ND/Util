@@ -1,6 +1,6 @@
 #!/bin/bash
 # ------ UGE settings ------
-#$ -N HALL_MONITOR
+#$ -N K100_HALL_MONITOR
 #$ -cwd
 #$ -V
 #$ -j y

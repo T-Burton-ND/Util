@@ -6,7 +6,7 @@
 #$ -V
 #$ -j y
 #$ -l h_rt=84:00:00
-#$ -N Se_Find_Shells
+#$ -N K100_Half_Life
 #$ -m e
 #$ -M tburton2@nd.edu
 
@@ -23,8 +23,8 @@ conda activate base
 module load python
 
 # --- Where to save the CSV (outside 'trial' so gzipping *.txt won't catch it) ---
-OUTPUT_CSV="$START_DIR/shell_results.csv"
-echo "run_name,electrolytes,run_number,shells" > "$OUTPUT_CSV"
+OUTPUT_CSV="$START_DIR/half_life_results.csv"
+echo "run_name,electrolytes,run_number,Mean Half Life,Std Deviation" > "$OUTPUT_CSV"
 
 # --- Enter the 'Run Outputs' directory ---
 cd ./run_outputs || { echo "Failed to enter ./run_outputs"; exit 1; }
@@ -43,32 +43,25 @@ for dir in run.* ; do
         ELECTROLYTES=${RUN_NAME%%_*} # 1  (before _)
         RUN_NUMBER=${RUN_NAME##*_}   # 1  (after _)
 
-        echo "Run name: $RUN_NAME | electrolytes: $ELECTROLYTES | run number: $RUN_NUMBER"
+        echo "Run name: $RUN_NAME | electrolytes: $ELECTROLYTES | run number: $RUN_NUMBER" |
 
+        python ../calc_scripts/shell_hl.py > python_output.txt 2>&1
 
-        # Unzip necessary files
-        #[[ -f equilibrated.data.gz ]] && gunzip -f equilibrated.data.gz || { echo "⚠️ Missing equilibrated.data(.gz), skipping $dir"; cd ..; continue; }
-        #[[ -f production.lammpstrj.gz ]] && gunzip -f production.lammpstrj.gz || { echo "⚠️ Missing production.lammpstrj(.gz), skipping $dir"; cd ..; continue; }
+        # Extract mean lifetime (text after "Mean Lifetime:")
+        MEAN=$(grep "Mean Lifetime" python_output.txt | awk -F':' '{print $2}' | tr -d '[:space:]')
 
+        # Extract std deviation (text after "Std:")
+        STDDEV=$(grep "^Std" python_output.txt | awk -F':' '{print $2}' | tr -d '[:space:]')
 
-        # Call Python and capture its final line; assume it prints: "<RUN_NAME> <SHELLS>"
-        PY_OUT=$(python /groups/bsavoie2/tburton2/Electrolytes/FF_carb/calc_scripts/cluster_py.py "$RUN_NAME" | tail -n 1)
-
-        # Shell count is last whitespace-separated field on that line
-        SHELLS=$(echo "$PY_OUT" | awk '{print $NF}')
+        # Debug print
+        echo "Parsed values → MEAN=$MEAN, STDDEV=$STDDEV"
 
         # Append to CSV
-        echo "${RUN_NAME},${ELECTROLYTES},${RUN_NUMBER},${SHELLS}" >> "$OUTPUT_CSV"
+        echo "${RUN_NAME},${ELECTROLYTES},${RUN_NUMBER},${MEAN},${STDDEV}" >> "$OUTPUT_CSV"
 
-        # Rezip files to save space
-#        gzip ${RUN_NAME}.xyz
-        #[[ -f equilibrated.data ]] && gzip -f equilibrated.data || echo "⚠️ Missing equilibrated.data, skipping gzip in $dir"
-        #[[ -f production.lammpstrj ]] && gzip -f production.lammpstrj || echo "⚠️ Missing production.lammpstrj, skipping gzip in $dir"
-
-
+        
         echo "Completed processing for $dir"
 
-        # Go back up
         cd ..
     fi
 done

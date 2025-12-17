@@ -30,7 +30,7 @@ print(f"[MSD] Trajectory: production.lammpstrj with {n_frames} frames")
 print(f"[MSD] Frame spacing = {u.trajectory.dt:.4f} fs")
 
 # Select only atom type 1                                                                                                                                                                                                                                        
-atoms_type1 = u.select_atoms("type 2")
+atoms_type1 = u.select_atoms("type 1")
 print(f"[MSD] Selected {atoms_type1.n_atoms} atoms of type 1")
 
 # ----------------------------                                                                                                                                                                                                                                   
