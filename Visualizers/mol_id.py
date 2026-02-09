@@ -114,19 +114,46 @@ def _apply_palette(opts, mol, multicolor: bool):
             # If even that fails, just leave defaults (still looks fine)
             pass
 
-def draw_molecule(smiles: str, output_file: str, multicolor: bool = True):
-    """Draw and save a 2D depiction of a molecule (no highlight halos)."""
+def draw_molecule(
+    smiles: str,
+    output_file: str,
+    multicolor: bool = True,
+    inline: bool = False,
+    background: str = "white",
+    size: int | None = None,
+    explicit_h: bool = False,
+):
+    """Draw a 2D depiction of a molecule (no highlight halos).
+
+    If ``inline`` is True and running inside IPython/Jupyter, the PNG is displayed
+    inline instead of being written to disk.
+    ``background`` controls PNG background ('transparent' or 'white').
+    ``size`` lets you enforce a square canvas (pixels) for consistency.
+    ``explicit_h`` draws explicit hydrogens when True.
+    """
     mol = Chem.MolFromSmiles(smiles)
     if mol is None:
         raise ValueError(f"Invalid SMILES: {smiles}")
+
+    if explicit_h:
+        mol = Chem.AddHs(mol)
+
     rdDepictor.Compute2DCoords(mol)
 
-    drawer = MolDraw2DCairo(-1, -1)  # auto-size
+    # If a minimum/explicit size is provided, use it for both dimensions
+    if size:
+        drawer = MolDraw2DCairo(size, size)
+    else:
+        drawer = MolDraw2DCairo(-1, -1)  # auto-size
     opts = drawer.drawOptions()
 
     # Clean, publication-ish look
     try:
-        opts.setBackgroundColour((1, 1, 1, 0))
+        if background.lower() == "white":
+            opts.setBackgroundColour((1, 1, 1, 1))
+        else:
+            # default: transparent
+            opts.setBackgroundColour((1, 1, 1, 0))
     except Exception:
         pass
     for attr, val in (("bondLineWidth", 2), ("fixedBondLength", 25.0)):
@@ -142,20 +169,28 @@ def draw_molecule(smiles: str, output_file: str, multicolor: bool = True):
     # Standard draw path (no highlighting)
     rdMolDraw2D.PrepareAndDrawMolecule(drawer, mol)
     drawer.FinishDrawing()
-    with open(output_file, "wb") as f:
-        f.write(drawer.GetDrawingText())
-    print(f"[✓] Image saved to: {output_file}")
-    
-    if args.show:
+
+    png_bytes = drawer.GetDrawingText()
+
+    # Inline display path (Jupyter/IPython)
+    if inline:
         try:
             from IPython import get_ipython
             ip = get_ipython()
             if ip is not None:
                 from IPython.display import Image as _IPyImage, display as _ipydisplay
-                _ipydisplay(_IPyImage(filename=output_path))
-        except Exception:
-            # Fail silently – keep CLI behavior unchanged
-            pass
+                _ipydisplay(_IPyImage(data=png_bytes))
+                print(f"[✓] {smiles} (inline display)")
+                return
+            else:
+                print("[!] --inline set but not running inside IPython; saving to file instead")
+        except Exception as e:
+            print(f"[!] Inline display failed ({e}); saving to file instead")
+
+    # Standard save path
+    with open(output_file, "wb") as f:
+        f.write(png_bytes)
+    print(f"[✓] {smiles} saved to: {output_file}")
 
 
 def resolve_inchikey_to_smiles(inchikey: str) -> tuple[str, int, str] | None:
@@ -419,8 +454,14 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("-o", "--output", help="Output image filename (default: <smiles>_viz.png)")
     p.add_argument("--no-multicolor", action="store_true", help="Disable ACS coloring (use black and white)")
     p.add_argument("--version", action="version", version="%(prog)s " + __version__)
-    p.add_argument("--show", action="store_true",
-               help="If running inside IPython (e.g. via %run), display the image inline")
+    p.add_argument("--inline", action="store_true",
+               help="Display the PNG inline in IPython/Jupyter instead of saving to disk")
+    p.add_argument("--background", choices=["transparent", "white"], default="white",
+               help="PNG background color (default: white)")
+    p.add_argument("--min-size", type=int, metavar="PX",
+               help="Force a square canvas of at least PX × PX (default: auto-size)")
+    p.add_argument("--explicit-h", action="store_true",
+               help="Draw explicit hydrogens (adds H atoms before depiction)")
 
     return p
 
@@ -476,7 +517,15 @@ if __name__ == "__main__":
 
         # --- Draw image from RDKit canonical SMILES ---
         output_path = args.output or f"{sanitize_filename(rdkit_smiles)}_viz.png"
-        draw_molecule(rdkit_smiles, output_path, multicolor=not args.no_multicolor)
+        draw_molecule(
+            rdkit_smiles,
+            output_path,
+            multicolor=not args.no_multicolor,
+            inline=args.inline,
+            background=args.background,
+            size=args.size,
+            explicit_h=args.explicit_h,
+        )
 
     except Exception as e:
         print(f"[✗] Error: {e}")
